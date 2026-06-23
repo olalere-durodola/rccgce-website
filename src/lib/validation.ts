@@ -10,19 +10,27 @@ export type Fund = (typeof FUNDS)[number];
 // Optional URL field that also accepts an empty string (e.g. cleared inputs).
 const optionalUrl = z.url().or(z.literal("")).optional();
 
+// Shared email field: validates format AND normalizes (lowercase + trim) so
+// registration and login agree on one canonical value. Without this, a user
+// who registers "Jane@Example.com" could not log in (the authorize lookup
+// would miss the lowercased stored email).
+const emailField = z
+  .email("Enter a valid email")
+  .transform((value) => value.toLowerCase().trim());
+
 // ---------------------------------------------------------------------------
 // Auth
 // ---------------------------------------------------------------------------
 
 export const registerSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.email("Enter a valid email"),
+  email: emailField,
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 export type RegisterInput = z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
-  email: z.email("Enter a valid email"),
+  email: emailField,
   password: z.string().min(1, "Password is required"),
 });
 export type LoginInput = z.infer<typeof loginSchema>;

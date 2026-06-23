@@ -27,6 +27,15 @@ const googleEnabled = Boolean(
  * a server component / env flag — exported here for server-side use. */
 export const isGoogleEnabled = googleEnabled;
 
+/**
+ * Fail-closed role coercion: any value other than the explicit "ADMIN" string
+ * (including unexpected/legacy DB values, undefined, or null) resolves to the
+ * least-privileged "MEMBER" role.
+ */
+function toRole(value: unknown): "MEMBER" | "ADMIN" {
+  return value === "ADMIN" ? "ADMIN" : "MEMBER";
+}
+
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
@@ -59,7 +68,7 @@ export const authConfig: NextAuthConfig = {
           name: user.name,
           email: user.email,
           image: user.image,
-          role: user.role as "MEMBER" | "ADMIN",
+          role: toRole(user.role),
         };
       },
     }),
@@ -70,6 +79,9 @@ export const authConfig: NextAuthConfig = {
           Google({
             clientId: process.env.AUTH_GOOGLE_ID,
             clientSecret: process.env.AUTH_GOOGLE_SECRET,
+            // Safe here: Google returns provider-verified emails, so linking a
+            // Google login to an existing same-email account can't be abused to
+            // hijack an account via an unverified address.
             allowDangerousEmailAccountLinking: true,
           }),
         ]
@@ -80,14 +92,14 @@ export const authConfig: NextAuthConfig = {
       // On sign-in, `user` is populated — copy id/role onto the token.
       if (user) {
         token.id = user.id;
-        token.role = (user.role as "MEMBER" | "ADMIN") ?? "MEMBER";
+        token.role = toRole(user.role);
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = (token.id as string) ?? session.user.id;
-        session.user.role = (token.role as "MEMBER" | "ADMIN") ?? "MEMBER";
+        session.user.role = toRole(token.role);
       }
       return session;
     },

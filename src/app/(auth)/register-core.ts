@@ -24,12 +24,11 @@ export async function createUser(input: unknown): Promise<CreateUserResult> {
     };
   }
 
+  // `email` is already lowercased/trimmed by registerSchema's email transform,
+  // so it matches the value the login authorize() will look up.
   const { name, email, password } = parsed.data;
-  const normalizedEmail = email.toLowerCase().trim();
 
-  const existing = await prisma.user.findUnique({
-    where: { email: normalizedEmail },
-  });
+  const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
     return { ok: false, error: "An account with that email already exists." };
   }
@@ -40,7 +39,7 @@ export async function createUser(input: unknown): Promise<CreateUserResult> {
     const user = await prisma.user.create({
       data: {
         name,
-        email: normalizedEmail,
+        email,
         hashedPassword,
         role: "MEMBER",
       },
