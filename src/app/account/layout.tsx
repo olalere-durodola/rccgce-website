@@ -7,8 +7,9 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { AccountNav } from "@/components/site/account-nav";
 
 export const metadata: Metadata = {
-  title: "My Account | RCCG Covenant Embassy",
+  title: "My Account",
   description: "Your member portal at RCCG Covenant Embassy.",
+  robots: { index: false, follow: false },
 };
 
 /**

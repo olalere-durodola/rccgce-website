@@ -26,12 +26,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const sermon = await prisma.sermon.findUnique({ where: { slug } });
-  if (!sermon) return { title: "Sermon not found | RCCG Covenant Embassy" };
+  if (!sermon) return { title: "Sermon not found" };
+  const description =
+    sermon.description ?? `${sermon.title} — a message by ${sermon.speaker}.`;
+  const image = sermon.thumbnailUrl ?? undefined;
   return {
-    title: `${sermon.title} | RCCG Covenant Embassy`,
-    description:
-      sermon.description ??
-      `${sermon.title} — a message by ${sermon.speaker}.`,
+    title: sermon.title,
+    description,
+    alternates: { canonical: `/sermons/${sermon.slug}` },
+    openGraph: {
+      type: "video.other",
+      title: sermon.title,
+      description,
+      url: `/sermons/${sermon.slug}`,
+      ...(image ? { images: [{ url: image, alt: sermon.title }] } : {}),
+    },
   };
 }
 

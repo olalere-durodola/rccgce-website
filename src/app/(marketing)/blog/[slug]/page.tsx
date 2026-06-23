@@ -26,10 +26,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await prisma.blogPost.findUnique({ where: { slug } });
-  if (!post) return { title: "Post not found | RCCG Covenant Embassy" };
+  if (!post) return { title: "Post not found" };
+  const description = post.excerpt ?? undefined;
+  const image = post.coverImage ?? undefined;
   return {
-    title: `${post.title} | RCCG Covenant Embassy`,
-    description: post.excerpt ?? undefined,
+    title: post.title,
+    description,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: `/blog/${post.slug}`,
+      publishedTime: post.publishedAt?.toISOString(),
+      ...(image ? { images: [{ url: image, alt: post.title }] } : {}),
+    },
   };
 }
 

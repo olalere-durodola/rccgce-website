@@ -14,7 +14,7 @@ import {
 } from "@/components/site/sermon-filter";
 
 export const metadata: Metadata = {
-  title: "Sermons | RCCG Covenant Embassy",
+  title: "Sermons",
   description:
     "Watch and listen to messages from RCCG Covenant Embassy. Search our sermon library by title, speaker, scripture, or series.",
 };

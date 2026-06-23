@@ -5,7 +5,7 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { ContactForm } from "@/components/site/contact-form";
 
 export const metadata: Metadata = {
-  title: "Contact | RCCG Covenant Embassy",
+  title: "Contact",
   description:
     "Get in touch with RCCG Covenant Embassy in Plano, Texas. Send us a message, find our address, or connect with us online.",
 };

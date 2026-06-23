@@ -8,7 +8,7 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { EventCard } from "@/components/site/event-card";
 
 export const metadata: Metadata = {
-  title: "Events | RCCG Covenant Embassy",
+  title: "Events",
   description:
     "See what's happening at RCCG Covenant Embassy. Browse upcoming services, studies, conferences, and outreach in Plano, Texas.",
 };

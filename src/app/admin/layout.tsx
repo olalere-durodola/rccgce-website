@@ -7,8 +7,9 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { AdminNav } from "@/components/site/admin-nav";
 
 export const metadata: Metadata = {
-  title: "Admin | RCCG Covenant Embassy",
+  title: "Admin",
   description: "Content management for RCCG Covenant Embassy.",
+  robots: { index: false, follow: false },
 };
 
 /**

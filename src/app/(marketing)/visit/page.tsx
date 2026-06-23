@@ -7,7 +7,7 @@ import { Arch } from "@/components/ui/arch";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 
 export const metadata: Metadata = {
-  title: "Plan Your Visit | RCCG Covenant Embassy",
+  title: "Plan Your Visit",
   description:
     "Planning your first visit to RCCG Covenant Embassy in Plano, Texas? Here's everything you need to know — service times, what to expect, parking, and kids.",
 };

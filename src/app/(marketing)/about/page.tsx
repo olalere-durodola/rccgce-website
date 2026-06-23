@@ -8,7 +8,7 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { BeliefsAccordion, type Belief } from "./beliefs-accordion";
 
 export const metadata: Metadata = {
-  title: "About | RCCG Covenant Embassy",
+  title: "About",
   description:
     "Discover the vision, story, and beliefs of RCCG Covenant Embassy — a house of covenant and destiny in Plano, Texas.",
 };

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
@@ -10,6 +11,15 @@ import { SermonCard } from "@/components/site/sermon-card";
 import { MinistryCard } from "@/components/site/ministry-card";
 import { EventCard } from "@/components/site/event-card";
 import { NewsletterForm } from "@/components/site/newsletter-form";
+
+export const metadata: Metadata = {
+  // Home uses the layout's default title (no template suffix) and canonical.
+  alternates: { canonical: "/" },
+  description:
+    "Welcome to RCCG Covenant Embassy in Plano, Texas — a house of covenant " +
+    "and destiny. Join us for worship, watch the latest sermon, explore our " +
+    "ministries, plan your visit, and give online.",
+};
 
 export default async function Home() {
   const now = new Date();

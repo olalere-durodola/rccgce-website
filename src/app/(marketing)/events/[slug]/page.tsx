@@ -24,10 +24,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const event = await prisma.event.findUnique({ where: { slug } });
-  if (!event) return { title: "Event not found | RCCG Covenant Embassy" };
+  if (!event) return { title: "Event not found" };
+  const description = event.description ?? undefined;
+  const image = event.imageUrl ?? undefined;
   return {
-    title: `${event.title} | RCCG Covenant Embassy`,
-    description: event.description ?? undefined,
+    title: event.title,
+    description,
+    alternates: { canonical: `/events/${event.slug}` },
+    openGraph: {
+      type: "article",
+      title: event.title,
+      description,
+      url: `/events/${event.slug}`,
+      ...(image ? { images: [{ url: image, alt: event.title }] } : {}),
+    },
   };
 }
 

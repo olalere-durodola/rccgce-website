@@ -6,7 +6,7 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { MinistryCard } from "@/components/site/ministry-card";
 
 export const metadata: Metadata = {
-  title: "Ministries | RCCG Covenant Embassy",
+  title: "Ministries",
   description:
     "Find your place to belong. Explore the ministries of RCCG Covenant Embassy for every age and season of life.",
 };

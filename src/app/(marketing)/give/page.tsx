@@ -5,7 +5,7 @@ import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { GiveWidget } from "@/components/site/give-widget";
 
 export const metadata: Metadata = {
-  title: "Give | RCCG Covenant Embassy",
+  title: "Give",
   description:
     "Partner with RCCG Covenant Embassy through your generosity. Give a one-time or recurring gift securely online to the Tithe, Offering, Missions, or Building fund.",
 };

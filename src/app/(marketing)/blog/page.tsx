@@ -9,7 +9,7 @@ import { Arch } from "@/components/ui/arch";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 
 export const metadata: Metadata = {
-  title: "Blog | RCCG Covenant Embassy",
+  title: "Blog",
   description:
     "Encouragement, teaching, and stories from the RCCG Covenant Embassy church family in Plano, Texas.",
 };

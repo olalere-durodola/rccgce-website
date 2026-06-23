@@ -22,10 +22,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const ministry = await prisma.ministry.findUnique({ where: { slug } });
-  if (!ministry) return { title: "Ministry not found | RCCG Covenant Embassy" };
+  if (!ministry) return { title: "Ministry not found" };
+  const description = ministry.summary ?? undefined;
+  const image = ministry.imageUrl ?? undefined;
   return {
-    title: `${ministry.name} | RCCG Covenant Embassy`,
-    description: ministry.summary ?? undefined,
+    title: ministry.name,
+    description,
+    alternates: { canonical: `/ministries/${ministry.slug}` },
+    openGraph: {
+      type: "article",
+      title: ministry.name,
+      description,
+      url: `/ministries/${ministry.slug}`,
+      ...(image ? { images: [{ url: image, alt: ministry.name }] } : {}),
+    },
   };
 }
 
