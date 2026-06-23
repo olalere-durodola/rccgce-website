@@ -67,7 +67,14 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/login"
+              className="hidden text-sm font-medium text-cream/90 transition-colors hover:text-gold focus-ring-gold sm:inline-flex"
+            >
+              Sign in
+            </Link>
+
             <Button href="/give" variant="gold" size="sm" className="hidden sm:inline-flex">
               Give
             </Button>
@@ -113,6 +120,15 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="block rounded-lg px-3 py-2 text-base font-medium text-cream/90 transition-colors hover:bg-white/5 hover:text-gold focus-ring-gold"
+              >
+                Sign in
+              </Link>
+            </li>
             <li className="mt-2">
               <Button
                 href="/give"

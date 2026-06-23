@@ -221,6 +221,16 @@ a managed **PostgreSQL** database.
 3. **Seed (optional):** for a fresh production database you can run the seed
    once, or create real content through the admin CMS instead.
 
+> **Serverless upload caveat.** `src/lib/upload.ts` (`saveUpload`) writes
+> uploaded images to the local disk under `public/uploads/`. Serverless hosts
+> like **Vercel** have a read-only / ephemeral filesystem, so local-disk uploads
+> do **NOT** persist and **will fail at runtime**. Before deploying to a
+> serverless host, replace the body of `saveUpload` with an object-store
+> implementation (**S3 / UploadThing / Cloudinary**); the function signature
+> `(File) => Promise<string>` is the only contract callers depend on, so nothing
+> else needs to change. Self-hosted / long-running Node servers with a
+> persistent filesystem are fine as-is.
+
 ---
 
 ## Project layout

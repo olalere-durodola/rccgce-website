@@ -5,6 +5,7 @@ import { AuthError } from "next-auth";
 
 import { signIn } from "@/lib/auth";
 import { createUser } from "@/app/(auth)/register-core";
+import { safeCallbackUrl } from "@/app/(auth)/callback-url";
 
 /**
  * Shape returned to the client form via `useActionState`.
@@ -47,7 +48,7 @@ export async function loginAction(
     await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirectTo: "/account",
+      redirectTo: safeCallbackUrl(formData.get("callbackUrl")),
     });
   } catch (error) {
     if (error instanceof AuthError) {

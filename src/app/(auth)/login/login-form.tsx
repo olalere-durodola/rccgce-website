@@ -24,9 +24,11 @@ function SubmitButton() {
 export function LoginForm({
   googleEnabled,
   registered,
+  callbackUrl,
 }: {
   googleEnabled: boolean;
   registered: boolean;
+  callbackUrl?: string;
 }) {
   const [state, formAction] = useActionState<AuthFormState, FormData>(
     loginAction,
@@ -46,6 +48,10 @@ export function LoginForm({
       ) : null}
 
       <form action={formAction} className="space-y-4" noValidate>
+        {callbackUrl ? (
+          <input type="hidden" name="callbackUrl" value={callbackUrl} />
+        ) : null}
+
         {state.error ? (
           <p
             role="alert"

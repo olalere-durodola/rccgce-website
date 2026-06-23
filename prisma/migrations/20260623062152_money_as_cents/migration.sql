@@ -1,3 +1,13 @@
+-- MONEY-AS-CENTS MIGRATION — SAFETY NOTE
+-- This migration changes Donation.amount and Subscription.amount from Float to
+-- Int and copies existing values 1:1 (no ×100 conversion). It therefore ASSUMES
+-- there are NO pre-existing donation/subscription rows holding dollar (float)
+-- amounts. Do NOT run it over a database that already stored dollar amounts as
+-- floats without first multiplying them by 100, or every recorded amount will be
+-- truncated to whole "dollars-as-cents" and the money values will be wrong.
+-- This repo's seed writes no donations or subscriptions, so applying it here is
+-- safe.
+
 /*
   Warnings:
 

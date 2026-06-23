@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ registered?: string }>;
+  searchParams: Promise<{ registered?: string; callbackUrl?: string }>;
 }) {
-  const { registered } = await searchParams;
+  const { registered, callbackUrl } = await searchParams;
 
   return (
     <AuthShell
@@ -38,6 +38,7 @@ export default async function LoginPage({
       <LoginForm
         googleEnabled={isGoogleEnabled}
         registered={registered === "1"}
+        callbackUrl={callbackUrl}
       />
     </AuthShell>
   );
