@@ -16,6 +16,29 @@ const NAV_LINKS = [
 
 export function Header() {
   const [open, setOpen] = React.useState(false);
+  const toggleRef = React.useRef<HTMLButtonElement>(null);
+  const drawerRef = React.useRef<HTMLElement>(null);
+
+  // When the drawer opens, move focus to the first nav link inside it.
+  React.useEffect(() => {
+    if (open) {
+      const firstLink = drawerRef.current?.querySelector<HTMLElement>("a");
+      firstLink?.focus();
+    }
+  }, [open]);
+
+  // Escape closes the drawer and returns focus to the toggle button.
+  React.useEffect(() => {
+    if (!open) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 bg-navy text-cream shadow-sm shadow-navy/20">
@@ -51,6 +74,7 @@ export function Header() {
 
             {/* Mobile toggle */}
             <button
+              ref={toggleRef}
               type="button"
               aria-label="Toggle menu"
               aria-expanded={open}
@@ -68,6 +92,7 @@ export function Header() {
 
       {/* Mobile drawer */}
       <nav
+        ref={drawerRef}
         id="mobile-nav"
         aria-label="Mobile"
         className={cn(
