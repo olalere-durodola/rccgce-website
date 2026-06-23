@@ -68,6 +68,14 @@ export type SubscriptionInput = z.infer<typeof subscriptionSchema>;
 // Content
 // ---------------------------------------------------------------------------
 
+export const seriesSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  slug: z.string().min(1, "Slug is required"),
+  description: z.string().optional(),
+  imageUrl: optionalUrl,
+});
+export type SeriesInput = z.infer<typeof seriesSchema>;
+
 export const sermonSchema = z.object({
   title: z.string().min(1, "Title is required"),
   slug: z.string().min(1, "Slug is required"),
