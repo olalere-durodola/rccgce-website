@@ -37,7 +37,9 @@ export async function requireUser(
 ): Promise<SessionUser> {
   const user = await getCurrentUser(getSession);
   if (!user) {
-    redirect("/login");
+    // redirect() throws in the Next runtime; `return` guards mocked test runs
+    // and keeps the type narrowed.
+    return redirect("/login");
   }
   return user;
 }
@@ -51,10 +53,10 @@ export async function requireAdmin(
 ): Promise<SessionUser> {
   const user = await getCurrentUser(getSession);
   if (!user) {
-    redirect("/login");
+    return redirect("/login");
   }
   if (user.role !== "ADMIN") {
-    redirect("/");
+    return redirect("/");
   }
   return user;
 }
