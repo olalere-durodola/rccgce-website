@@ -8,6 +8,9 @@ export default defineConfig({
   schema: path.join("prisma", "schema.prisma"),
   migrations: {
     path: path.join("prisma", "migrations"),
+    // `prisma db seed` entry point. The `npm run seed` script is the primary,
+    // documented way to seed; this wires the CLI command to the same script.
+    seed: "tsx prisma/seed.ts",
   },
   datasource: {
     url: env("DATABASE_URL"),
