@@ -78,7 +78,7 @@ describe("POST /api/paypal/webhook", () => {
     expect(arg.where).toEqual({ paypalOrderId: "ORDER1" });
     expect(arg.create).toMatchObject({
       paypalOrderId: "ORDER1",
-      amount: 150,
+      amount: 15000,
       currency: "USD",
       fund: "Building",
       status: "COMPLETED",

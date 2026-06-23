@@ -13,6 +13,7 @@
  * from process.env. Never import this from client code.
  */
 import { FUNDS, type Fund } from "@/lib/validation";
+import { parseAmountToCents } from "@/lib/money";
 
 const API_BASE =
   process.env.PAYPAL_API_BASE ?? "https://api-m.sandbox.paypal.com";
@@ -49,10 +50,11 @@ export function parseFundFromCustomId(
 }
 
 // Normalized webhook records returned by `mapWebhookEvent`.
+// NOTE: `amount` is always integer CENTS (or null when unparseable).
 export type DonationWebhook = {
   kind: "donation";
   paypalOrderId: string;
-  amount: number;
+  amount: number | null;
   currency: string;
   fund: Fund | null;
   status: string;
@@ -63,7 +65,8 @@ export type SubscriptionWebhook = {
   paypalSubscriptionId: string;
   status: string;
   planName?: string;
-  amount?: number;
+  /** Integer cents, only present when PayPal includes it. */
+  amount?: number | null;
   fund?: Fund | null;
 };
 
@@ -100,7 +103,8 @@ export function mapWebhookEvent(event: unknown): MappedWebhook | null {
     return {
       kind: "donation",
       paypalOrderId: orderId,
-      amount: Number(amountObj.value ?? 0),
+      // Integer cents, or null when the value is missing/garbled.
+      amount: parseAmountToCents(amountObj.value),
       currency: amountObj.currency_code ?? "USD",
       fund: parseFundFromCustomId(res.custom_id as string | undefined),
       status: "COMPLETED",
@@ -112,10 +116,13 @@ export function mapWebhookEvent(event: unknown): MappedWebhook | null {
     if (!id) return null;
     const status =
       (res.status as string | undefined) ?? type.split(".").pop() ?? "UNKNOWN";
+    // Parse fund from custom_id when PayPal echoes it; never invent placeholders.
+    const fund = parseFundFromCustomId(res.custom_id as string | undefined);
     return {
       kind: "subscription",
       paypalSubscriptionId: id,
       status,
+      ...(fund ? { fund } : {}),
     };
   }
 

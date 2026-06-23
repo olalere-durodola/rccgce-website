@@ -24,7 +24,7 @@ vi.mock("@/lib/db", () => ({
 const authFn = vi.fn(async () => null);
 vi.mock("@/lib/auth", () => ({ auth: (...a: unknown[]) => authFn(...a) }));
 
-import { POST as createOrderРOST } from "@/app/api/paypal/create-order/route";
+import { POST as createOrderPOST } from "@/app/api/paypal/create-order/route";
 import { POST as captureOrderPOST } from "@/app/api/paypal/capture-order/route";
 import { POST as createSubscriptionPOST } from "@/app/api/paypal/create-subscription/route";
 
@@ -51,7 +51,7 @@ beforeEach(() => {
 
 describe("POST /api/paypal/create-order", () => {
   it("rejects an amount <= 0 with 400 and does not call PayPal", async () => {
-    const res = await createOrderРOST(
+    const res = await createOrderPOST(
       jsonRequest("http://localhost/api/paypal/create-order", {
         amount: 0,
         fund: "Tithe",
@@ -62,7 +62,7 @@ describe("POST /api/paypal/create-order", () => {
   });
 
   it("rejects a bad fund with 400", async () => {
-    const res = await createOrderРOST(
+    const res = await createOrderPOST(
       jsonRequest("http://localhost/api/paypal/create-order", {
         amount: 10,
         fund: "Yacht",
@@ -74,7 +74,7 @@ describe("POST /api/paypal/create-order", () => {
 
   it("creates an order for a valid body and returns the id", async () => {
     createOrder.mockResolvedValue({ id: "ORDER1", status: "CREATED" });
-    const res = await createOrderРOST(
+    const res = await createOrderPOST(
       jsonRequest("http://localhost/api/paypal/create-order", {
         amount: 50,
         fund: "Offering",
@@ -133,7 +133,7 @@ describe("POST /api/paypal/capture-order", () => {
     expect(arg.where).toEqual({ paypalOrderId: "ORDER1" });
     expect(arg.create).toMatchObject({
       paypalOrderId: "ORDER1",
-      amount: 100,
+      amount: 10000,
       fund: "Building",
       status: "COMPLETED",
     });

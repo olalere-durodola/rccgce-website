@@ -38,8 +38,9 @@ export async function POST(request: Request) {
 
   try {
     if (mapped.kind === "donation") {
-      if (!mapped.fund) {
-        // Can't attribute the fund — ack but do not record a half-record.
+      // amount is integer cents (or null when unparseable). Don't record a
+      // half-record missing fund or a valid amount.
+      if (!mapped.fund || mapped.amount === null || mapped.amount <= 0) {
         return NextResponse.json({ ok: true, ignored: true });
       }
       await prisma.donation.upsert({
@@ -59,6 +60,10 @@ export async function POST(request: Request) {
         },
       });
     } else {
+      // Subscriptions are recorded with real amount/fund at create time. The
+      // webhook only UPDATEs status — it must NEVER overwrite a real amount
+      // with 0 or a real fund with a placeholder. We only set amount/fund on
+      // CREATE, and only when the event actually carried them.
       await prisma.subscription.upsert({
         where: { paypalSubscriptionId: mapped.paypalSubscriptionId },
         update: { status: mapped.status },
@@ -66,6 +71,8 @@ export async function POST(request: Request) {
           paypalSubscriptionId: mapped.paypalSubscriptionId,
           status: mapped.status,
           planName: mapped.planName ?? "Recurring Gift",
+          // Use known values when present; fall back only on first-seen create
+          // (e.g. if the create-subscription route's DB write had failed).
           amount: mapped.amount ?? 0,
           fund: mapped.fund ?? "Offering",
         },

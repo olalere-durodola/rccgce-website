@@ -85,7 +85,7 @@ describe("mapWebhookEvent", () => {
     expect(mapWebhookEvent(event)).toEqual({
       kind: "donation",
       paypalOrderId: "ORDER123",
-      amount: 150,
+      amount: 15000,
       currency: "USD",
       fund: "Building",
       status: "COMPLETED",

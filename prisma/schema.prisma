@@ -154,7 +154,8 @@ model BlogPost {
 model Donation {
   id            String   @id @default(cuid())
   userId        String?
-  amount        Float
+  // Stored as integer CENTS (e.g. $25.00 -> 2500) to avoid float drift.
+  amount        Int
   currency      String   @default("USD")
   // Allowed values: "Tithe" | "Offering" | "Missions" | "Building"
   fund          String
@@ -170,7 +171,8 @@ model Subscription {
   userId               String?
   paypalSubscriptionId String   @unique
   planName             String
-  amount               Float
+  // Stored as integer CENTS (e.g. $25.00 -> 2500) to avoid float drift.
+  amount               Int
   // Allowed values: "Tithe" | "Offering" | "Missions" | "Building"
   fund                 String
   status               String

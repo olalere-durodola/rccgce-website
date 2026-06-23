@@ -129,7 +129,10 @@ export function GiveWidget() {
                   setCustomAmount("");
                 }}
                 role="radio"
-                ariaChecked={amount === preset}
+                ariaChecked={
+                  amount === preset &&
+                  (mode === "monthly" || customAmount.trim() === "")
+                }
               >
                 ${preset}
               </SegmentButton>
