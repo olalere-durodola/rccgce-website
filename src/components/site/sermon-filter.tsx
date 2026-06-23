@@ -14,6 +14,8 @@ export type SeriesOption = { id: string; title: string };
 type Props = {
   sermons: FilterableSermon[];
   series: SeriesOption[];
+  /** Series id to pre-select (e.g. from a `?series=<slug>` deep link). */
+  initialSeries?: string | null;
 };
 
 /**
@@ -25,10 +27,12 @@ type Props = {
  * Accessible: the search field has an associated label and the result count is
  * announced via an aria-live region.
  */
-export function SermonFilter({ sermons, series }: Props) {
+export function SermonFilter({ sermons, series, initialSeries }: Props) {
   const searchId = useId();
   const [query, setQuery] = useState("");
-  const [activeSeries, setActiveSeries] = useState<string | null>(null);
+  const [activeSeries, setActiveSeries] = useState<string | null>(
+    initialSeries ?? null,
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

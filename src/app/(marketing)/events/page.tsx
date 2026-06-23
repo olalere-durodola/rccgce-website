@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { format } from "date-fns";
 import { prisma } from "@/lib/db";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -111,11 +112,7 @@ export default async function EventsPage() {
                 >
                   <p className="font-mono text-xs uppercase tracking-wider text-gold">
                     <time dateTime={event.startsAt.toISOString()}>
-                      {new Intl.DateTimeFormat("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                      }).format(event.startsAt)}
+                      {format(event.startsAt, "MMMM d, yyyy")}
                     </time>
                   </p>
                   <h3 className="mt-1 font-display text-lg font-bold text-cream">

@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { Paragraphs } from "@/components/ui/paragraphs";
 
 type Params = { slug: string };
 
@@ -104,15 +105,11 @@ export default async function EventDetailPage({
               About this event
             </h2>
             <div className="mt-5 space-y-4 leading-relaxed text-ink/85">
-              {(event.description ?? "")
-                .split("\n")
-                .filter(Boolean)
-                .map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              {!event.description ? (
+              {event.description ? (
+                <Paragraphs text={event.description} />
+              ) : (
                 <p>Details are coming soon. Check back for more information.</p>
-              ) : null}
+              )}
             </div>
 
             <div className="mt-10 flex flex-wrap gap-4">

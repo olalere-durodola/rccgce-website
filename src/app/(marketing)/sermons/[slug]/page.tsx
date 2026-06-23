@@ -5,9 +5,9 @@ import { format } from "date-fns";
 import { prisma } from "@/lib/db";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { Paragraphs } from "@/components/ui/paragraphs";
 import { SaveSermonButton } from "@/components/site/save-sermon-button";
 import { getCurrentUser } from "@/lib/rbac";
 import { isSermonSaved } from "../save-core";
@@ -150,12 +150,7 @@ export default async function SermonDetailPage({
                 </p>
               ) : null}
               <div className="mt-4 space-y-4 leading-relaxed text-ink/85">
-                {sermon.description
-                  .split("\n")
-                  .filter(Boolean)
-                  .map((para, i) => (
-                    <p key={i}>{para}</p>
-                  ))}
+                <Paragraphs text={sermon.description} />
               </div>
             </div>
           ) : null}

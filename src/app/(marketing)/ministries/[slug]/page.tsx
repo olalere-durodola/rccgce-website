@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { Paragraphs } from "@/components/ui/paragraphs";
 
 type Params = { slug: string };
 
@@ -87,12 +88,9 @@ export default async function MinistryDetailPage({
               About this ministry
             </h2>
             <div className="mt-5 space-y-4 leading-relaxed text-ink/85">
-              {(ministry.description ?? ministry.summary ?? "")
-                .split("\n")
-                .filter(Boolean)
-                .map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
+              <Paragraphs
+                text={ministry.description ?? ministry.summary ?? ""}
+              />
             </div>
           </div>
 

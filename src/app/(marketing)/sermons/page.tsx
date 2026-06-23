@@ -19,20 +19,28 @@ export const metadata: Metadata = {
     "Watch and listen to messages from RCCG Covenant Embassy. Search our sermon library by title, speaker, scripture, or series.",
 };
 
-export default async function SermonsPage() {
-  const [sermons, series] = await Promise.all([
-    prisma.sermon.findMany({
-      orderBy: { date: "desc" },
-      include: { series: { select: { title: true } } },
-    }),
-    prisma.series.findMany({ orderBy: { createdAt: "asc" } }),
+export default async function SermonsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ series?: string }>;
+}) {
+  const [{ series: seriesSlug }, [sermons, series]] = await Promise.all([
+    searchParams,
+    Promise.all([
+      prisma.sermon.findMany({
+        orderBy: { date: "desc" },
+        include: { series: { select: { title: true } } },
+      }),
+      prisma.series.findMany({ orderBy: { createdAt: "asc" } }),
+    ]),
   ]);
 
   const featured = sermons[0] ?? null;
-  const rest = featured ? sermons.slice(1) : sermons;
 
-  // Serialize a minimal, client-safe subset for the filter component.
-  const filterable: FilterableSermon[] = rest.map((s) => ({
+  // Serialize a minimal, client-safe subset for the filter component. The full
+  // list (including the featured sermon) is included so search finds every
+  // sermon — the hero above is just an additional highlight.
+  const filterable: FilterableSermon[] = sermons.map((s) => ({
     id: s.id,
     slug: s.slug,
     title: s.title,
@@ -48,6 +56,11 @@ export default async function SermonsPage() {
     id: s.id,
     title: s.title,
   }));
+
+  // Translate a `?series=<slug>` deep link into the series id the filter keys
+  // on, so the grid loads pre-filtered when arriving from a series badge.
+  const initialSeries =
+    series.find((s) => s.slug === seriesSlug)?.id ?? null;
 
   return (
     <>
@@ -145,7 +158,11 @@ export default async function SermonsPage() {
           </div>
 
           {sermons.length > 0 ? (
-            <SermonFilter sermons={filterable} series={seriesOptions} />
+            <SermonFilter
+              sermons={filterable}
+              series={seriesOptions}
+              initialSeries={initialSeries}
+            />
           ) : (
             <p className="text-center text-ink/70">
               Sermons are coming soon. Please check back shortly.
