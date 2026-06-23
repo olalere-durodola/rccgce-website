@@ -35,6 +35,17 @@ export const loginSchema = z.object({
 });
 export type LoginInput = z.infer<typeof loginSchema>;
 
+// Member profile edit. Email is intentionally omitted: it is the login identity
+// (the Credentials authorize() and OAuth account-linking key on it), so v1 keeps
+// it read-only to avoid uniqueness collisions and identity drift. We only allow
+// editing the display name and an optional avatar image URL.
+// TODO: add a verified email-change flow if/when email editing is required.
+export const profileSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  image: optionalUrl,
+});
+export type ProfileInput = z.infer<typeof profileSchema>;
+
 // ---------------------------------------------------------------------------
 // Giving
 // ---------------------------------------------------------------------------
