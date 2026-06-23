@@ -6,16 +6,23 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { AdminFlash } from "@/components/site/admin-flash";
 import { deleteEvent } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 /** Admin events list: every event with Edit + Delete and a "New event" button. */
-export default async function AdminEventsPage() {
+export default async function AdminEventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string; deleted?: string }>;
+}) {
+  const { saved, deleted } = await searchParams;
   const events = await prisma.event.findMany({ orderBy: { startsAt: "desc" } });
 
   return (
     <div className="space-y-8">
+      <AdminFlash saved={saved} deleted={deleted} />
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <ScriptureEyebrow reference="Ecclesiastes 3:1" label="Gather" />

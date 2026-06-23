@@ -21,9 +21,6 @@ const LINKS = [
  * Admin sidebar navigation. Horizontal scroll row on mobile, vertical rail on
  * large screens. Highlights the active section (exact match for the dashboard
  * root, prefix match for sub-sections). Includes "View site" and sign-out.
- *
- * Some links (Events/Ministries/Blog/Donations/Members) are wired now but their
- * pages land in Phase 7b — they 404 until then by design.
  */
 export function AdminNav() {
   const pathname = usePathname();

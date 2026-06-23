@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { AdminFlash } from "@/components/site/admin-flash";
 import { deleteSermon } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +14,12 @@ export const dynamic = "force-dynamic";
  * Admin sermons list: a table of every sermon with Edit + Delete actions and a
  * "New sermon" button. Empty state invites the first create.
  */
-export default async function AdminSermonsPage() {
+export default async function AdminSermonsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string; deleted?: string }>;
+}) {
+  const { saved, deleted } = await searchParams;
   const sermons = await prisma.sermon.findMany({
     orderBy: { date: "desc" },
     include: { series: { select: { title: true } } },
@@ -21,6 +27,7 @@ export default async function AdminSermonsPage() {
 
   return (
     <div className="space-y-8">
+      <AdminFlash saved={saved} deleted={deleted} />
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <ScriptureEyebrow reference="2 Timothy 4:2" label="Preach" />

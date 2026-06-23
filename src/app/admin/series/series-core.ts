@@ -1,14 +1,17 @@
-import { Prisma } from "@prisma/client";
-
-import { getCurrentUser, type GetSession } from "@/lib/rbac";
+import { type GetSession } from "@/lib/rbac";
 import { seriesSchema } from "@/lib/validation";
 import { slugify } from "@/lib/utils";
+import {
+  type MutationResult,
+  nz,
+  ensureAdmin,
+  fieldErrorsFrom,
+  isUniqueViolation,
+  SLUG_TAKEN,
+} from "@/app/admin/crud-helpers";
 
 /** See sermon-core for the shape rationale. */
-export type SeriesMutationResult =
-  | { status: "forbidden" }
-  | { status: "error"; message: string; errors?: Record<string, string> }
-  | { status: "ok"; slug: string };
+export type SeriesMutationResult = MutationResult;
 
 /**
  * Minimal Prisma surface the core needs. The arg/return types are intentionally
@@ -29,13 +32,7 @@ export type SeriesStore = {
 
 type CoreDeps = { db: SeriesStore; getSession?: GetSession };
 
-async function ensureAdmin(getSession?: GetSession): Promise<boolean> {
-  const user = await getCurrentUser(getSession);
-  return user?.role === "ADMIN";
-}
-
 function toData(parsed: ReturnType<typeof seriesSchema.parse>) {
-  const nz = (v?: string) => (v && v.length > 0 ? v : null);
   return {
     title: parsed.title,
     slug: parsed.slug,
@@ -43,34 +40,6 @@ function toData(parsed: ReturnType<typeof seriesSchema.parse>) {
     imageUrl: nz(parsed.imageUrl),
   };
 }
-
-function fieldErrorsFrom(error: import("zod").ZodError) {
-  const fieldErrors = error.flatten().fieldErrors as Record<
-    string,
-    string[] | undefined
-  >;
-  const errors: Record<string, string> = {};
-  for (const key of Object.keys(fieldErrors)) {
-    const msg = fieldErrors[key]?.[0];
-    if (msg) errors[key] = msg;
-  }
-  return {
-    message: "Please correct the highlighted fields and try again.",
-    errors,
-  };
-}
-
-function isUniqueViolation(err: unknown): boolean {
-  return (
-    err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002"
-  );
-}
-
-const SLUG_TAKEN: SeriesMutationResult = {
-  status: "error",
-  message: "That slug is already in use. Choose a different one.",
-  errors: { slug: "This slug is already taken." },
-};
 
 function parseInput(input: Record<string, unknown>) {
   const rawSlug = typeof input.slug === "string" ? input.slug.trim() : "";

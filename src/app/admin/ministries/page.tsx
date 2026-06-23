@@ -4,18 +4,25 @@ import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { AdminFlash } from "@/components/site/admin-flash";
 import { deleteMinistry } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 /** Admin ministries list. */
-export default async function AdminMinistriesPage() {
+export default async function AdminMinistriesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string; deleted?: string }>;
+}) {
+  const { saved, deleted } = await searchParams;
   const ministries = await prisma.ministry.findMany({
     orderBy: { name: "asc" },
   });
 
   return (
     <div className="space-y-8">
+      <AdminFlash saved={saved} deleted={deleted} />
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <ScriptureEyebrow reference="Ephesians 4:12" label="Serve" />

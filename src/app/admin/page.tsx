@@ -108,7 +108,7 @@ export default async function AdminDashboardPage() {
                 >
                   <div className="min-w-0">
                     <p className="truncate font-body text-sm font-medium text-ink">
-                      {d.user?.name ?? d.user?.email ?? "Anonymous"}
+                      {d.user?.name ?? d.user?.email ?? "Guest"}
                     </p>
                     <p className="text-xs text-muted">
                       {d.fund} · {format(d.createdAt, "PP")}

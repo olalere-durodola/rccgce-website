@@ -4,12 +4,18 @@ import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { AdminFlash } from "@/components/site/admin-flash";
 import { deleteSeries } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 /** Admin series list with Edit + Delete actions and an empty state. */
-export default async function AdminSeriesPage() {
+export default async function AdminSeriesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string; deleted?: string }>;
+}) {
+  const { saved, deleted } = await searchParams;
   const series = await prisma.series.findMany({
     orderBy: { title: "asc" },
     include: { _count: { select: { sermons: true } } },
@@ -17,6 +23,7 @@ export default async function AdminSeriesPage() {
 
   return (
     <div className="space-y-8">
+      <AdminFlash saved={saved} deleted={deleted} />
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <ScriptureEyebrow reference="Ecclesiastes 3:1" label="Seasons" />

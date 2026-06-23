@@ -1,14 +1,17 @@
-import { Prisma } from "@prisma/client";
-
-import { getCurrentUser, type GetSession } from "@/lib/rbac";
+import { type GetSession } from "@/lib/rbac";
 import { blogPostSchema } from "@/lib/validation";
 import { slugify } from "@/lib/utils";
+import {
+  type MutationResult,
+  nz,
+  adminUser,
+  fieldErrorsFrom,
+  isUniqueViolation,
+  SLUG_TAKEN,
+} from "@/app/admin/crud-helpers";
 
 /** See sermon-core for the shape rationale. */
-export type BlogMutationResult =
-  | { status: "forbidden" }
-  | { status: "error"; message: string; errors?: Record<string, string> }
-  | { status: "ok"; slug: string };
+export type BlogMutationResult = MutationResult;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type BlogStore = {
@@ -22,18 +25,7 @@ export type BlogStore = {
 
 type CoreDeps = { db: BlogStore; getSession?: GetSession };
 
-/**
- * SECURITY: every mutation re-checks the admin role from the SERVER session
- * (defence in depth). Returns the authenticated user so create can stamp the
- * authorId from the session — NEVER from client input.
- */
-async function adminUser(getSession?: GetSession) {
-  const user = await getCurrentUser(getSession);
-  return user?.role === "ADMIN" ? user : null;
-}
-
 function toData(parsed: ReturnType<typeof blogPostSchema.parse>) {
-  const nz = (v?: string) => (v && v.length > 0 ? v : null);
   return {
     title: parsed.title,
     slug: parsed.slug,
@@ -44,34 +36,6 @@ function toData(parsed: ReturnType<typeof blogPostSchema.parse>) {
     publishedAt: parsed.publishedAt ?? null,
   };
 }
-
-function fieldErrorsFrom(error: import("zod").ZodError) {
-  const fieldErrors = error.flatten().fieldErrors as Record<
-    string,
-    string[] | undefined
-  >;
-  const errors: Record<string, string> = {};
-  for (const key of Object.keys(fieldErrors)) {
-    const msg = fieldErrors[key]?.[0];
-    if (msg) errors[key] = msg;
-  }
-  return {
-    message: "Please correct the highlighted fields and try again.",
-    errors,
-  };
-}
-
-function isUniqueViolation(err: unknown): boolean {
-  return (
-    err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002"
-  );
-}
-
-const SLUG_TAKEN: BlogMutationResult = {
-  status: "error",
-  message: "That slug is already in use. Choose a different one.",
-  errors: { slug: "This slug is already taken." },
-};
 
 /** Normalise + validate. Slug auto-derives from the title; empty date dropped. */
 function parseInput(input: Record<string, unknown>) {

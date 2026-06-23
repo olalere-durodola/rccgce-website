@@ -6,18 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { AdminFlash } from "@/components/site/admin-flash";
 import { deleteBlogPost } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 /** Admin blog list: every post with published/draft status and date. */
-export default async function AdminBlogPage() {
+export default async function AdminBlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string; deleted?: string }>;
+}) {
+  const { saved, deleted } = await searchParams;
   const posts = await prisma.blogPost.findMany({
     orderBy: { createdAt: "desc" },
   });
 
   return (
     <div className="space-y-8">
+      <AdminFlash saved={saved} deleted={deleted} />
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <ScriptureEyebrow reference="Habakkuk 2:2" label="Write" />

@@ -115,6 +115,21 @@ describe("createSermonCore — happy path", () => {
     expect(res.status).toBe("error");
     if (res.status === "error") expect(res.errors?.slug).toBeTruthy();
   });
+
+  it("returns a friendly seriesId error on a missing-series (P2003) FK violation", async () => {
+    create.mockRejectedValueOnce(
+      new Prisma.PrismaClientKnownRequestError("FK", {
+        code: "P2003",
+        clientVersion: "7",
+      }),
+    );
+    const res = await createSermonCore(
+      { ...validInput, seriesId: "gone" },
+      { db, getSession: admin },
+    );
+    expect(res.status).toBe("error");
+    if (res.status === "error") expect(res.errors?.seriesId).toBeTruthy();
+  });
 });
 
 describe("updateSermonCore", () => {
