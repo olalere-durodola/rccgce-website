@@ -40,6 +40,55 @@ body {
   border-radius: 0.25rem;
 }
 
+/* Blog body: style the safe HTML produced by renderMarkdown (no typography
+   plugin in use, so we scope a small set of element rules here). */
+.prose-blog h2 {
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.25;
+  color: var(--color-navy);
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+.prose-blog h3 {
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--color-navy);
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-blog p {
+  font-size: 1.0625rem;
+}
+.prose-blog ul,
+.prose-blog ol {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.prose-blog ul {
+  list-style: disc;
+}
+.prose-blog ol {
+  list-style: decimal;
+}
+.prose-blog a {
+  color: var(--color-gold-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-blog a:hover {
+  color: var(--color-royal);
+}
+.prose-blog strong {
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
 /* Respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
