@@ -85,8 +85,18 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${dmMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* Skip link: hidden until focused, then jumps keyboard/screen-reader
+            users straight past the nav to the page content. */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-navy focus:px-4 focus:py-2 focus:font-medium focus:text-cream focus-ring-gold"
+        >
+          Skip to main content
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main" tabIndex={-1} className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

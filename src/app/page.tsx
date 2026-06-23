@@ -103,7 +103,7 @@ export default async function Home() {
           <ScriptureEyebrow
             reference="Psalm 100:4"
             label="Welcome"
-            className="justify-center text-gold-deep"
+            className="justify-center text-gold-ink"
           />
           <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
             You&rsquo;re Welcome Home
@@ -197,7 +197,7 @@ export default async function Home() {
                 <ScriptureEyebrow
                   reference="1 Corinthians 12:27"
                   label="Get Involved"
-                  className="text-gold-deep"
+                  className="text-gold-ink"
                 />
                 <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
                   Find Your Place to Belong
@@ -209,7 +209,7 @@ export default async function Home() {
               </div>
               <Link
                 href="/ministries"
-                className="shrink-0 rounded-sm font-mono text-sm uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy focus-ring-gold"
+                className="shrink-0 rounded-sm font-mono text-sm uppercase tracking-[0.15em] text-gold-ink transition-colors hover:text-navy focus-ring-gold"
               >
                 Explore all ministries &rarr;
               </Link>
@@ -236,7 +236,7 @@ export default async function Home() {
                   <ScriptureEyebrow
                     reference="Hebrews 10:25"
                     label="Gather"
-                    className="text-gold-deep"
+                    className="text-gold-ink"
                   />
                   <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
                     Upcoming Events
@@ -244,7 +244,7 @@ export default async function Home() {
                 </div>
                 <Link
                   href="/events"
-                  className="shrink-0 rounded-sm font-mono text-sm uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy focus-ring-gold"
+                  className="shrink-0 rounded-sm font-mono text-sm uppercase tracking-[0.15em] text-gold-ink transition-colors hover:text-navy focus-ring-gold"
                 >
                   View calendar &rarr;
                 </Link>

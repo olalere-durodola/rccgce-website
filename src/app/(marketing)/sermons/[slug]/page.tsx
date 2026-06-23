@@ -154,7 +154,7 @@ export default async function SermonDetailPage({
                 About this message
               </h2>
               {sermon.scripture ? (
-                <p className="mt-3 font-mono text-sm uppercase tracking-[0.12em] text-gold-deep">
+                <p className="mt-3 font-mono text-sm uppercase tracking-[0.12em] text-gold-ink">
                   {sermon.scripture}
                 </p>
               ) : null}
@@ -167,7 +167,7 @@ export default async function SermonDetailPage({
           <div className="mt-12 border-t border-navy/10 pt-8">
             <Link
               href="/sermons"
-              className="font-mono text-sm uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy focus-ring-gold"
+              className="font-mono text-sm uppercase tracking-[0.15em] text-gold-ink transition-colors hover:text-navy focus-ring-gold"
             >
               &larr; Back to all sermons
             </Link>

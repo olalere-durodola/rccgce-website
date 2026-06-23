@@ -45,10 +45,10 @@ export function SermonCard({ sermon }: { sermon: SermonCardData }) {
           <ScriptureEyebrow
             reference={sermon.scripture}
             label={sermon.series?.title ?? "Sermon"}
-            className="text-gold-deep"
+            className="text-gold-ink"
           />
         ) : sermon.series ? (
-          <Badge tone="outline" className="text-gold-deep border-gold-deep/60">
+          <Badge tone="outline" className="text-gold-ink border-gold-deep/60">
             {sermon.series.title}
           </Badge>
         ) : null}

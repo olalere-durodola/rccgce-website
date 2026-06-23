@@ -62,7 +62,7 @@ export default async function EventsPage() {
               <ScriptureEyebrow
                 reference="Psalm 27:14"
                 label="Coming Soon"
-                className="justify-center text-gold-deep"
+                className="justify-center text-gold-ink"
               />
               <h2 className="mt-5 font-display text-2xl font-bold text-navy">
                 No upcoming events just yet
@@ -78,7 +78,7 @@ export default async function EventsPage() {
                 <Button
                   href="/sermons"
                   variant="ghost"
-                  className="text-gold-deep hover:bg-navy/5"
+                  className="text-gold-ink hover:bg-navy/5"
                 >
                   Watch Sermons
                 </Button>

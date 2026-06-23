@@ -68,7 +68,7 @@ export default async function BlogPage() {
 
                   <div className="mt-5 space-y-2">
                     {post.publishedAt ? (
-                      <p className="font-mono text-xs uppercase tracking-[0.18em] text-gold-deep">
+                      <p className="font-mono text-xs uppercase tracking-[0.18em] text-gold-ink">
                         <time dateTime={post.publishedAt.toISOString()}>
                           {format(post.publishedAt, "MMMM d, yyyy")}
                         </time>

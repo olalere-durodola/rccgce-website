@@ -7,9 +7,15 @@
   --color-royal: #1c2a5e;
   --color-gold: #e8c66b;
   --color-gold-deep: #c9a23f;
+  /* Accessible gold for TEXT on light (cream/white) backgrounds: 4.88:1 on
+     cream, meeting WCAG AA. Use `text-gold-ink` for gold-toned labels on light
+     surfaces; reserve `text-gold`/`text-gold-deep` (lighter) for dark surfaces
+     and non-text accents (borders, fills). */
+  --color-gold-ink: #856518;
   --color-cream: #f5f3ec;
   --color-ink: #11131a;
-  --color-muted: #6b7280;
+  /* Muted gray for secondary labels. 5.2:1 on cream (WCAG AA for normal text). */
+  --color-muted: #5f6672;
 
   /* Fonts (CSS variables provided by next/font in layout.tsx) */
   --font-display: var(--font-display);
@@ -77,7 +83,7 @@ body {
   list-style: decimal;
 }
 .prose-blog a {
-  color: var(--color-gold-deep);
+  color: var(--color-gold-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
 }

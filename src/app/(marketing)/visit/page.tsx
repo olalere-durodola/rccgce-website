@@ -80,7 +80,7 @@ export default function VisitPage() {
             <ScriptureEyebrow
               reference="Romans 15:7"
               label="What to Expect"
-              className="text-gold-deep"
+              className="text-gold-ink"
             />
             <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
               Come As You Are
@@ -164,7 +164,7 @@ export default function VisitPage() {
             <ScriptureEyebrow
               reference="Isaiah 56:7"
               label="Find Us"
-              className="text-gold-deep"
+              className="text-gold-ink"
             />
             <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
               We&rsquo;d Love to See You

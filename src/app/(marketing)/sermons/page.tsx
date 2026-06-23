@@ -106,7 +106,7 @@ export default async function SermonsPage({
               <ScriptureEyebrow
                 reference={featured.scripture ?? "2 Timothy 4:2"}
                 label="Latest Message"
-                className="text-gold-deep"
+                className="text-gold-ink"
               />
               <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
                 {featured.title}
@@ -150,7 +150,7 @@ export default async function SermonsPage({
             <ScriptureEyebrow
               reference="Psalm 119:105"
               label="Browse All"
-              className="text-gold-deep"
+              className="text-gold-ink"
             />
             <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
               Explore the Library

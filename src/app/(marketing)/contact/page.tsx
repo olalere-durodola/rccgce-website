@@ -62,7 +62,7 @@ export default function ContactPage() {
           {/* Details */}
           <aside className="lg:pt-1">
             <div className="rounded-2xl border border-gold/40 bg-white/70 p-6 sm:p-8">
-              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
                 Church Details
               </h2>
               <dl className="mt-5 space-y-5 text-sm">
@@ -109,7 +109,7 @@ export default function ContactPage() {
               </dl>
 
               <div className="mt-6 border-t border-navy/10 pt-5">
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
                   Follow Along
                 </h3>
                 <ul className="mt-3 flex flex-wrap gap-3 text-sm">

@@ -119,7 +119,7 @@ export function ProfileForm({
           (isError
             ? "text-red-600"
             : isSuccess
-              ? "text-gold-deep"
+              ? "text-gold-ink"
               : "sr-only")
         }
       >

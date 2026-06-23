@@ -94,7 +94,7 @@ export function ContactForm() {
           (state.status === "error"
             ? "text-red-600"
             : state.status === "success"
-              ? "text-gold-deep"
+              ? "text-gold-ink"
               : "sr-only")
         }
       >

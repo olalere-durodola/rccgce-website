@@ -39,7 +39,7 @@ export function BeliefsAccordion({ beliefs }: { beliefs: Belief[] }) {
                 <span
                   aria-hidden="true"
                   className={
-                    "shrink-0 text-2xl leading-none text-gold-deep transition-transform duration-200 motion-reduce:transition-none " +
+                    "shrink-0 text-2xl leading-none text-gold-ink transition-transform duration-200 motion-reduce:transition-none " +
                     (isOpen ? "rotate-45" : "")
                   }
                 >

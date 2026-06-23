@@ -51,7 +51,7 @@ export function GiveWidget() {
     <div className="rounded-2xl border border-gold/30 bg-white/70 p-6 shadow-sm shadow-navy/5 sm:p-8">
       {/* Fund selector */}
       <fieldset className="border-0 p-0">
-        <legend className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+        <legend className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
           Choose a fund
         </legend>
         <div
@@ -75,7 +75,7 @@ export function GiveWidget() {
 
       {/* Mode toggle */}
       <fieldset className="mt-6 border-0 p-0">
-        <legend className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+        <legend className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
           Frequency
         </legend>
         <div
@@ -112,7 +112,7 @@ export function GiveWidget() {
 
       {/* Amount */}
       <fieldset className="mt-6 border-0 p-0">
-        <legend className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+        <legend className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
           {mode === "monthly" ? "Monthly amount" : "Amount"}
         </legend>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -378,7 +378,7 @@ function StatusMessage({ status }: { status: Status }) {
           ? "sr-only"
           : "px-4 py-3 " +
               (status.kind === "success"
-                ? "bg-gold/15 text-gold-deep"
+                ? "bg-gold/15 text-gold-ink"
                 : isError
                   ? "bg-red-50 text-red-700"
                   : "bg-navy/5 text-ink/70"),
@@ -397,7 +397,7 @@ function ConfiguringFallback() {
   return (
     <div className="rounded-2xl border border-gold/30 bg-white/70 p-8 text-center shadow-sm shadow-navy/5">
       {/* TODO: set NEXT_PUBLIC_PAYPAL_CLIENT_ID */}
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+      <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
         Online Giving
       </p>
       <h3 className="mt-3 font-display text-2xl font-bold text-navy">

@@ -128,7 +128,7 @@ export default async function EventDetailPage({
               </Button>
               <Link
                 href="/events"
-                className="inline-flex items-center font-mono text-sm uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy focus-ring-gold"
+                className="inline-flex items-center font-mono text-sm uppercase tracking-[0.15em] text-gold-ink transition-colors hover:text-navy focus-ring-gold"
               >
                 &larr; All events
               </Link>
@@ -138,7 +138,7 @@ export default async function EventDetailPage({
           {/* Details card */}
           <aside className="lg:pt-1">
             <div className="rounded-2xl border border-gold/40 bg-white/70 p-6 sm:p-7">
-              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
                 Details
               </h2>
               <dl className="mt-4 space-y-4 text-sm">

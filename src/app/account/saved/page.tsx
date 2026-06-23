@@ -76,7 +76,7 @@ export default async function SavedSermonsPage() {
 
                 <div className="flex min-w-0 flex-1 flex-col">
                   {sermon.series ? (
-                    <p className="font-mono text-xs uppercase tracking-[0.15em] text-gold-deep">
+                    <p className="font-mono text-xs uppercase tracking-[0.15em] text-gold-ink">
                       {sermon.series.title}
                     </p>
                   ) : null}

@@ -59,7 +59,7 @@ export default function GivePage() {
             <ScriptureEyebrow
               reference="Malachi 3:10"
               label="Give Online"
-              className="text-gold-deep"
+              className="text-gold-ink"
             />
             <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
               Make Your Gift
@@ -85,7 +85,7 @@ export default function GivePage() {
                   key={fund.name}
                   className="rounded-2xl border border-gold/30 bg-white/60 p-5"
                 >
-                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
                     {fund.name}
                   </p>
                   <p className="mt-2 leading-relaxed text-ink/80">

@@ -53,7 +53,7 @@ export function SermonFilter({ sermons, series, initialSeries }: Props) {
         <div className="w-full max-w-md">
           <label
             htmlFor={searchId}
-            className="mb-1.5 block font-mono text-xs uppercase tracking-[0.18em] text-gold-deep"
+            className="mb-1.5 block font-mono text-xs uppercase tracking-[0.18em] text-gold-ink"
           >
             Search sermons
           </label>

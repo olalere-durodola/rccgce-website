@@ -116,7 +116,7 @@ export default function AboutPage() {
             <ScriptureEyebrow
               reference="1 Samuel 7:12"
               label="Our Story"
-              className="text-gold-deep"
+              className="text-gold-ink"
             />
             <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
               Built on Faithfulness
@@ -153,7 +153,7 @@ export default function AboutPage() {
             <ScriptureEyebrow
               reference="Jude 1:3"
               label="What We Believe"
-              className="justify-center text-gold-deep"
+              className="justify-center text-gold-ink"
             />
             <h2 className="mt-5 font-display text-3xl font-bold text-navy sm:text-4xl">
               Statement of Beliefs

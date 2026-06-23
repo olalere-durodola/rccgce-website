@@ -68,7 +68,7 @@ export default async function AccountDashboardPage() {
       <div className="grid gap-4 sm:grid-cols-3">
         {stats.map((stat) => (
           <Card key={stat.label} hairline className="p-6">
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
               {stat.label}
             </p>
             <p className="mt-2 font-display text-3xl text-navy">{stat.value}</p>

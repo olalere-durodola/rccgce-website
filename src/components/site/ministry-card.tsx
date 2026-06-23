@@ -44,7 +44,7 @@ export function MinistryCard({ ministry }: { ministry: MinistryCardData }) {
               {ministry.summary}
             </p>
           ) : null}
-          <span className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+          <span className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
             Learn more &rarr;
           </span>
         </div>

@@ -107,7 +107,7 @@ export default async function MinistryDetailPage({
           {/* Details + CTA */}
           <aside className="lg:pt-1">
             <div className="rounded-2xl border border-gold/40 bg-white/70 p-6 sm:p-7">
-              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-deep">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-gold-ink">
                 Details
               </h2>
               <dl className="mt-4 space-y-4 text-sm">
@@ -131,7 +131,7 @@ export default async function MinistryDetailPage({
                 <Button href="/contact" variant="navy" className="w-full">
                   Get Involved
                 </Button>
-                <Button href="/ministries" variant="ghost" className="w-full text-gold-deep hover:bg-navy/5">
+                <Button href="/ministries" variant="ghost" className="w-full text-gold-ink hover:bg-navy/5">
                   &larr; All ministries
                 </Button>
               </div>

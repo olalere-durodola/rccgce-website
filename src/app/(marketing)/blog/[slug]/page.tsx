@@ -124,7 +124,7 @@ export default async function BlogPostPage({
           <div className="mt-14 border-t border-navy/10 pt-8">
             <Link
               href="/blog"
-              className="font-mono text-sm uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy focus-ring-gold"
+              className="font-mono text-sm uppercase tracking-[0.15em] text-gold-ink transition-colors hover:text-navy focus-ring-gold"
             >
               &larr; Back to the blog
             </Link>
