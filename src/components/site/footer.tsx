@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
+import { NewsletterForm } from "@/components/site/newsletter-form";
 
 const QUICK_LINKS = [
   { href: "/about", label: "About" },
@@ -91,11 +92,13 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            {/* Newsletter form slot — built in Phase 4 */}
-            <p className="text-xs text-cream/50">
-              {/* TODO: newsletter signup form (Phase 4) */}
-              Newsletter signup coming soon.
-            </p>
+            {/* Newsletter signup */}
+            <div className="pt-2">
+              <p className="mb-1 text-sm text-cream/70">
+                Stay connected. Get occasional updates from the church.
+              </p>
+              <NewsletterForm />
+            </div>
           </div>
         </div>
 
