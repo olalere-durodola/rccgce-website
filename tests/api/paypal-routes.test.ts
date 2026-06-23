@@ -14,9 +14,11 @@ vi.mock("@/lib/paypal", () => ({
 
 // --- mock prisma ---
 const donationUpsert = vi.fn();
+const subscriptionUpsert = vi.fn();
 vi.mock("@/lib/db", () => ({
   prisma: {
     donation: { upsert: (...a: unknown[]) => donationUpsert(...a) },
+    subscription: { upsert: (...a: unknown[]) => subscriptionUpsert(...a) },
   },
 }));
 
@@ -41,6 +43,8 @@ beforeEach(() => {
   captureOrder.mockReset();
   createSubscription.mockReset();
   donationUpsert.mockReset();
+  subscriptionUpsert.mockReset();
+  subscriptionUpsert.mockResolvedValue({ id: "s1" });
   authFn.mockReset();
   authFn.mockResolvedValue(null);
 });
@@ -258,6 +262,38 @@ describe("POST /api/paypal/create-subscription", () => {
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({ id: "SUB1" });
     expect(createSubscription).toHaveBeenCalledTimes(1);
+
+    // Records the subscription with the donor's real amount in CENTS + fund,
+    // so the webhook only has to update status (guards the cents conversion).
+    expect(subscriptionUpsert).toHaveBeenCalledTimes(1);
+    const arg = subscriptionUpsert.mock.calls[0][0] as {
+      where: { paypalSubscriptionId: string };
+      create: Record<string, unknown>;
+    };
+    expect(arg.where).toEqual({ paypalSubscriptionId: "SUB1" });
+    expect(arg.create).toMatchObject({
+      paypalSubscriptionId: "SUB1",
+      planName: "Monthly Tithe",
+      amount: 5000,
+      fund: "Tithe",
+      status: "APPROVAL_PENDING",
+    });
+    vi.unstubAllEnvs();
+  });
+
+  it("still returns the id (200) when the subscription DB write fails", async () => {
+    vi.stubEnv("PAYPAL_PLAN_TITHE_50", "P-TITHE-50");
+    createSubscription.mockResolvedValue({ id: "SUB2", status: "APPROVAL_PENDING" });
+    subscriptionUpsert.mockRejectedValueOnce(new Error("db down"));
+    const res = await createSubscriptionPOST(
+      jsonRequest("http://localhost/api/paypal/create-subscription", {
+        planName: "Monthly Tithe",
+        amount: 50,
+        fund: "Tithe",
+      }),
+    );
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toEqual({ id: "SUB2" });
     vi.unstubAllEnvs();
   });
 });
