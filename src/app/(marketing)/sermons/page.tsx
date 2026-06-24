@@ -13,6 +13,11 @@ import {
   type SeriesOption,
 } from "@/components/site/sermon-filter";
 
+// Content is DB-backed and edited via the CMS, so render at request time rather
+// than statically at build. On Railway the DB is migrated on deploy (after the
+// build), and new content should appear without a rebuild.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Sermons",
   description:

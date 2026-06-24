@@ -5,6 +5,11 @@ import { Section } from "@/components/ui/section";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
 import { MinistryCard } from "@/components/site/ministry-card";
 
+// Content is DB-backed and edited via the CMS, so render at request time rather
+// than statically at build. On Railway the DB is migrated on deploy (after the
+// build), and new content should appear without a rebuild.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Ministries",
   description:
