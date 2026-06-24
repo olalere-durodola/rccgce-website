@@ -4,7 +4,7 @@
  * Run with: `npm run seed`  (alias for `tsx prisma/seed.ts`).
  *
  * Idempotent: existing content rows are cleared and re-created, and the demo
- * users are upserted, so the script is safe to run repeatedly against dev.db.
+ * users are upserted, so the script is safe to run repeatedly against the database.
  *
  * Demo credentials (also documented in the README):
  *   ADMIN  — admin@covenantembassy.org / Admin123!

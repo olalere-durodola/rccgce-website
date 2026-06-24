@@ -7,6 +7,16 @@ import { PrismaPg } from "@prisma/adapter-pg";
 // DATABASE_URL example: postgresql://USER:PASS@localhost:5432/rccgce?schema=public
 const connectionString = process.env.DATABASE_URL;
 
+// Fail fast with a clear message in production rather than surfacing an opaque
+// error on the first query. In dev we allow it to be unset (e.g. `next build`,
+// which does no DB work) so the build never needs a live database.
+if (!connectionString && process.env.NODE_ENV === "production") {
+  throw new Error(
+    "DATABASE_URL is not set. On Railway, add a PostgreSQL service and set the " +
+      "web service variable DATABASE_URL=${{Postgres.DATABASE_URL}}.",
+  );
+}
+
 function createPrismaClient() {
   const adapter = new PrismaPg({ connectionString });
   return new PrismaClient({ adapter });
