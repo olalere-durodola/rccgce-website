@@ -1,0 +1,5 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RCCG Covenant Embassy">
+  <rect width="64" height="64" rx="12" fill="#0B1436"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="10.5" fill="none" stroke="#E8C66B" stroke-width="1.5" stroke-opacity="0.55"/>
+  <text x="32" y="33" font-family="Georgia, 'Playfair Display', serif" font-size="30" font-weight="700" fill="#E8C66B" text-anchor="middle" dominant-baseline="central" letter-spacing="-1">CE</text>
+</svg>
