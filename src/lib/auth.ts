@@ -40,6 +40,10 @@ export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   secret: process.env.AUTH_SECRET,
+  // Trust the host/proxy headers. Required behind reverse proxies on
+  // non-Vercel hosts like Railway, otherwise NextAuth v5 throws an
+  // UntrustedHost error on sign-in/callback. Also honoured via AUTH_TRUST_HOST.
+  trustHost: true,
   pages: {
     signIn: "/login",
   },
