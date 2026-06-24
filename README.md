@@ -17,7 +17,7 @@ Built on the **Royal Covenant** design system — navy (`#0B1436`) and gold
 | -------------- | ----------------------------------------------------- |
 | Framework      | Next.js 16 (App Router, React 19, TypeScript)         |
 | Styling        | Tailwind CSS v4 (design tokens in `globals.css`)      |
-| Database / ORM | Prisma v7 — SQLite in development                     |
+| Database / ORM | Prisma v7 — PostgreSQL (local + production)           |
 | Auth           | NextAuth (Auth.js) v5 — Credentials + optional Google |
 | Payments       | PayPal (one-time orders + recurring subscriptions)    |
 | Validation     | Zod                                                   |
@@ -49,6 +49,17 @@ Built on the **Royal Covenant** design system — navy (`#0B1436`) and gold
 
 - **Node.js 20 or 22** (developed and tested on Node 22).
 - **npm** (the repo ships a `package-lock.json`).
+- **PostgreSQL** for local development. The easiest way is Docker:
+
+  ```bash
+  docker run --name rccgce-pg -e POSTGRES_PASSWORD=postgres \
+    -e POSTGRES_DB=rccgce -p 5432:5432 -d postgres:16
+  ```
+
+  This matches the default `DATABASE_URL` in `.env.example`. (Any local Postgres
+  works — just point `DATABASE_URL` at it. You can also point it at a Railway
+  Postgres URL.) The app uses PostgreSQL in **both** local dev and production, so
+  there is no provider mismatch between environments.
 
 ---
 
@@ -65,8 +76,8 @@ cp .env.example .env
 npx auth secret        # writes/updates AUTH_SECRET, or:
 # openssl rand -base64 32
 
-# 4. Create the SQLite database and apply migrations
-npx prisma migrate dev
+# 4. Start a local Postgres (see Prerequisites) and apply migrations
+npx prisma migrate deploy   # applies prisma/migrations to your local DB
 
 # 5. Seed demo content (sermons, events, ministries, blog, demo users)
 npm run seed
@@ -76,6 +87,9 @@ npm run dev
 ```
 
 Open <http://localhost:3000>.
+
+> If you change the schema during development, use `npx prisma migrate dev` to
+> create a new migration; `migrate deploy` only applies existing ones.
 
 ### Demo logins
 
@@ -183,53 +197,33 @@ can be edited in-app once you replace the seeded demo records.
 
 ---
 
-## Deployment (Vercel + managed Postgres)
+## Deployment (Railway + managed Postgres)
 
-SQLite is for local development only. For production, deploy on **Vercel** with
-a managed **PostgreSQL** database.
+Production runs on **Railway** with Railway's managed **PostgreSQL** (the same
+provider used locally). On every `git push`, Railway builds the app and runs
+`npx prisma migrate deploy` on deploy before starting Next.js — so migrations
+apply automatically. Build/start commands live in
+[`railway.json`](./railway.json).
 
-1. **Switch the Prisma datasource to Postgres** in `prisma/schema.prisma`:
+**See [`docs/DEPLOY-RAILWAY.md`](./docs/DEPLOY-RAILWAY.md) for the full
+step-by-step guide** (create the project from GitHub, add the Postgres service
+and wire `${{Postgres.DATABASE_URL}}`, set `AUTH_SECRET` /
+`AUTH_TRUST_HOST=true` / `NEXT_PUBLIC_SITE_URL` / PayPal vars, run the seed once,
+the PayPal webhook URL, and the Hobby-plan cost caveat).
 
-   ```prisma
-   datasource db {
-     provider = "postgresql"
-   }
-   ```
+For PayPal go-live, switch `PAYPAL_API_BASE` to `https://api-m.paypal.com`,
+supply live `PAYPAL_CLIENT_ID` / `PAYPAL_CLIENT_SECRET` / `PAYPAL_WEBHOOK_ID` /
+`NEXT_PUBLIC_PAYPAL_CLIENT_ID` (+ any `PAYPAL_PLAN_*` plan ids), and point the
+live PayPal webhook at `https://<prod-host>/api/paypal/webhook`.
 
-   Set `DATABASE_URL` to your managed Postgres connection string (the URL is
-   read from `prisma.config.ts` / the `DATABASE_URL` env var). Then run
-   migrations against the new database:
-
-   ```bash
-   npx prisma migrate deploy
-   ```
-
-2. **Set environment variables** in the Vercel project (Production + Preview):
-
-   - `DATABASE_URL` — managed Postgres connection string
-   - `AUTH_SECRET` — a fresh production secret
-   - `NEXT_PUBLIC_SITE_URL` — the canonical production URL, e.g.
-     `https://www.rccgcovenantembassy.org` (drives `metadataBase`, Open Graph,
-     sitemap, and robots)
-   - `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` — only if Google sign-in is wanted
-   - PayPal: switch sandbox → **live** by setting
-     `PAYPAL_API_BASE="https://api-m.paypal.com"` and supplying live
-     `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_WEBHOOK_ID`,
-     `NEXT_PUBLIC_PAYPAL_CLIENT_ID`, and the live `PAYPAL_PLAN_*` plan ids
-   - Point the PayPal **live** webhook at `https://<prod-host>/api/paypal/webhook`
-
-3. **Seed (optional):** for a fresh production database you can run the seed
-   once, or create real content through the admin CMS instead.
-
-> **Serverless upload caveat.** `src/lib/upload.ts` (`saveUpload`) writes
-> uploaded images to the local disk under `public/uploads/`. Serverless hosts
-> like **Vercel** have a read-only / ephemeral filesystem, so local-disk uploads
-> do **NOT** persist and **will fail at runtime**. Before deploying to a
-> serverless host, replace the body of `saveUpload` with an object-store
-> implementation (**S3 / UploadThing / Cloudinary**); the function signature
-> `(File) => Promise<string>` is the only contract callers depend on, so nothing
-> else needs to change. Self-hosted / long-running Node servers with a
-> persistent filesystem are fine as-is.
+> **Ephemeral-filesystem upload caveat.** `src/lib/upload.ts` (`saveUpload`)
+> writes uploaded images to local disk under `public/uploads/`. Railway
+> containers (like serverless hosts) have an ephemeral filesystem, so local-disk
+> uploads do **NOT** persist across deploys/restarts. Before relying on admin
+> image uploads in production, replace the body of `saveUpload` with an
+> object-store implementation (**S3 / UploadThing / Cloudinary**); the function
+> signature `(File) => Promise<string>` is the only contract callers depend on,
+> so nothing else needs to change.
 
 ---
 

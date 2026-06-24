@@ -1,12 +1,24 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-// Prisma v7 requires a driver adapter. For local SQLite we use better-sqlite3.
-// DATABASE_URL is e.g. "file:./dev.db"; strip the file: prefix for the adapter.
-const url = process.env.DATABASE_URL ?? "file:./dev.db";
+// Prisma v7 requires a driver adapter. We use @prisma/adapter-pg (node-postgres)
+// for PostgreSQL in every environment — Railway managed Postgres in production
+// and a local Postgres (Docker, see README) in development.
+// DATABASE_URL example: postgresql://USER:PASS@localhost:5432/rccgce?schema=public
+const connectionString = process.env.DATABASE_URL;
+
+// Fail fast with a clear message in production rather than surfacing an opaque
+// error on the first query. In dev we allow it to be unset (e.g. `next build`,
+// which does no DB work) so the build never needs a live database.
+if (!connectionString && process.env.NODE_ENV === "production") {
+  throw new Error(
+    "DATABASE_URL is not set. On Railway, add a PostgreSQL service and set the " +
+      "web service variable DATABASE_URL=${{Postgres.DATABASE_URL}}.",
+  );
+}
 
 function createPrismaClient() {
-  const adapter = new PrismaBetterSqlite3({ url });
+  const adapter = new PrismaPg({ connectionString });
   return new PrismaClient({ adapter });
 }
 

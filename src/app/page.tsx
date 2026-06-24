@@ -12,6 +12,11 @@ import { MinistryCard } from "@/components/site/ministry-card";
 import { EventCard } from "@/components/site/event-card";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 
+// The home page pulls featured sermons/events/ministries from the DB, so render
+// at request time rather than statically at build. On Railway the DB is migrated
+// on deploy (after the build), and new content should appear without a rebuild.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   // Home uses the layout's default title (no template suffix) and canonical.
   alternates: { canonical: "/" },

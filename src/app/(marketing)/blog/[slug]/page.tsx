@@ -11,13 +11,10 @@ import { renderMarkdown } from "@/lib/markdown";
 
 type Params = { slug: string };
 
-export async function generateStaticParams() {
-  const posts = await prisma.blogPost.findMany({
-    where: { publishedAt: { not: null } },
-    select: { slug: true },
-  });
-  return posts.map((p) => ({ slug: p.slug }));
-}
+// Content is DB-backed and edited via the CMS, so render at request time rather
+// than statically at build. On Railway the DB is migrated on deploy (after the
+// build), and new content should appear without a rebuild.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
