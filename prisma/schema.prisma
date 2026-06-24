@@ -1,13 +1,19 @@
-// RCCG Covenant Embassy — Prisma schema (SQLite)
-// NOTE: SQLite has no native enums. "Enum-like" columns are plain String
-// fields with documented allowed values (validated in app code via Zod).
+// RCCG Covenant Embassy — Prisma schema (PostgreSQL)
+// NOTE: "Enum-like" columns are plain String fields with documented allowed
+// values (validated in app code via Zod), kept as Strings for flexibility and
+// to match the original SQLite design — they are not native Postgres enums.
+//
+// Both production (Railway managed Postgres) and local development use
+// PostgreSQL. See docs/DEPLOY-RAILWAY.md and the README for the local Docker
+// Postgres one-liner. The connection URL is read from prisma.config.ts /
+// the DATABASE_URL env var.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 // ---------------------------------------------------------------------------
