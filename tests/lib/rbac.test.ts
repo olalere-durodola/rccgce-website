@@ -77,6 +77,22 @@ const noSession = async () => null;
 const adminSession = async () => sessionWith("ADMIN");
 const memberSession = async () => sessionWith("MEMBER");
 
+describe("malformed authentication results", () => {
+  it.each([
+    { message: "Configuration error" },
+    {},
+    { user: { role: "ADMIN" } },
+    { user: { id: "", role: "ADMIN" } },
+    { user: { id: "   ", role: "ADMIN" } },
+    { user: { id: 1, role: "ADMIN" } },
+  ])("denies access without a valid account identity: %j", async result => {
+    const getSession = async () => result as unknown as Session;
+    expect(await getCurrentUser(getSession)).toBeNull();
+    expect(await captureRedirect(() => requireUser(getSession))).toBe("/login");
+    expect(await captureRedirect(() => requireAdmin(getSession))).toBe("/login");
+  });
+});
+
 describe("getCurrentUser", () => {
   it("returns null when there is no session", async () => {
     expect(await getCurrentUser(noSession)).toBeNull();

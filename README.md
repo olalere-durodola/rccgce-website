@@ -15,6 +15,7 @@ Checks:
 ```bash
 npm test                 # Existing app and private route/access tests
 npm run lint
+npm run audit:production # Fails on any production dependency advisory
 npm run test:redesign    # Original 25 media/schedule tests
 npm run build            # Needs a migrated local/test database for legacy CMS routes
 npm run validate:redesign
@@ -23,9 +24,9 @@ npm run validate:content
 
 For build checks without an application database, `python scripts/create-build-fixture.py` creates a brand-new disposable SQLite file from committed migration SQL and prints its `DATABASE_URL`. It never reads a configured database URL and never seeds demo users or content. This is a build fixture, not a replacement migration workflow. The PR workflow uses it with read-only repository permissions and no deployment step.
 
-Local verification: 184 app tests and 25 standalone tests pass; generated-document and source-to-page content checks pass. Lint has seven pre-existing warnings and no errors. Browser/mobile and actual YouTube playback review remain outstanding. See `redesign/CONTENT-MIGRATION.md` for the old-site copy inventory and explicit exceptions.
+Local verification: 195 app tests and 25 standalone tests pass; generated-document and source-to-page content checks pass. Lint has zero warnings and errors, and warnings now fail CI. Browser/mobile and actual YouTube playback review remain outstanding. See `redesign/CONTENT-MIGRATION.md` for the old-site copy inventory and explicit exceptions.
 
-Release limitation recorded October 16, 2026: `npm audit --omit=dev --json` reports 18 production dependency findings (5 moderate, 9 high, 4 critical), including the existing Next.js/Auth.js dependency chain. The full CI install reports 30 findings. Dependencies and the lockfile are unchanged by this redesign transfer. Review and remediate the advisories before public release; passing functional checks does not resolve these findings.
+Dependency remediation recorded October 16, 2026: the production audit now reports zero findings, down from 18. The full audit decreased from 30 findings to five high findings in the development-only lint dependency chain, all originating from the unpatched `braces` advisory GHSA-vfj7-8cjw-p6xm. These five entries remain open; they are not a clean full audit. CI requires a clean production audit, records the complete audit as an artifact, and bounds the verification job to ten minutes. See [SECURITY-REVIEW.md](SECURITY-REVIEW.md) for versions, scope, evidence and remaining acceptance work.
 
 ---
 
@@ -120,7 +121,7 @@ The admin account can reach the CMS at `/admin`; members land in `/account`.
 ## Tests & build
 
 ```bash
-npm test          # vitest run — full unit/integration suite (184 tests)
+npm test          # vitest run — full unit/integration suite (195 tests)
 npm run build     # production build (must be clean)
 npm run lint      # eslint
 ```

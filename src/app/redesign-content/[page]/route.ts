@@ -21,16 +21,16 @@ export async function GET(request: Request, context: {params: Promise<{page: str
     ? routes[page as keyof typeof routes] : undefined;
   if (!entry) return new Response("Not found", {status: 404, headers: privacyHeaders});
 
-  const session = await auth();
-  if (!canReviewRedesign(session?.user, process.env.REDESIGN_REVIEWER_USER_IDS)) {
-    if (!session?.user) {
-      const login = new URL("/login", request.url);
-      login.searchParams.set("callbackUrl", entry.path + new URL(request.url).search);
-      return new Response(null, {status: 307, headers: {...privacyHeaders, Location: login.href}});
-    }
-    return new Response("This preview is private. Your account needs review access.", {status: 403, headers: privacyHeaders});
-  }
   try {
+    const session = await auth();
+    if (!canReviewRedesign(session?.user, process.env.REDESIGN_REVIEWER_USER_IDS)) {
+      if (!session?.user) {
+        const login = new URL("/login", request.url);
+        login.searchParams.set("callbackUrl", entry.path + new URL(request.url).search);
+        return new Response(null, {status: 307, headers: {...privacyHeaders, Location: login.href}});
+      }
+      return new Response("This preview is private. Your account needs review access.", {status: 403, headers: privacyHeaders});
+    }
     const body = await readFile(join(process.cwd(), "redesign", "dist", entry.file), "utf8");
     return new Response(body, {headers: {...privacyHeaders, "Content-Type": "text/html; charset=utf-8"}});
   } catch {

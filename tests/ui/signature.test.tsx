@@ -28,11 +28,11 @@ describe("Arch", () => {
   it("renders the child and has the gold keyline class", () => {
     render(
       <Arch data-testid="arch">
-        <img src="/x.jpg" alt="sanctuary" />
+        <span>Sanctuary content</span>
       </Arch>,
     );
     const arch = screen.getByTestId("arch");
-    expect(screen.getByAltText("sanctuary")).toBeInTheDocument();
+    expect(screen.getByText("Sanctuary content")).toBeInTheDocument();
     expect(arch.className).toMatch(/gold/);
   });
 });

@@ -1,7 +1,6 @@
 "use client";
 
 export default function GlobalError({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };
@@ -40,7 +39,6 @@ export default function GlobalError({
           <p style={{ opacity: 0.8, marginBottom: "1.5rem" }}>
             A critical error occurred. Please try again.
           </p>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <button
             type="button"
             onClick={() => reset()}

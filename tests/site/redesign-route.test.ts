@@ -39,6 +39,27 @@ describe("private redesign delivery", () => {
     expect(response.status).toBe(403);
     expect(mocks.readFile).not.toHaveBeenCalled();
   });
+  it.each([
+    {message: "Configuration error"},
+    {user: {role: "ADMIN"}},
+    {user: {id: "   ", role: "ADMIN"}},
+    {user: {id: 1, role: "ADMIN"}},
+  ])("never serves private content for a malformed auth result: %j", async result => {
+    mocks.auth.mockResolvedValue(result);
+    const response = await GET(new Request("https://preview.example/"), {params: Promise.resolve({page: "home"})});
+    expect([307, 403]).toContain(response.status);
+    expect(response.headers.get("cache-control")).toContain("no-store");
+    expect(mocks.readFile).not.toHaveBeenCalled();
+  });
+  it("fails closed when authentication throws without exposing internal details", async () => {
+    mocks.auth.mockRejectedValue(new Error("sensitive provider configuration"));
+    const response = await GET(new Request("https://preview.example/"), {params: Promise.resolve({page: "home"})});
+    expect(response.status).toBe(503);
+    expect(response.headers.get("cache-control")).toContain("no-store");
+    expect(response.headers.get("x-robots-tag")).toContain("noindex");
+    expect(await response.text()).not.toContain("sensitive provider");
+    expect(mocks.readFile).not.toHaveBeenCalled();
+  });
   it.each(Object.keys(routes))("serves allowlisted page %s to an administrator without shared caching", async page => {
     mocks.auth.mockResolvedValue({user: {id: "admin", role: "ADMIN"}});
     const response = await GET(new Request("https://preview.example/redesign-content/" + page), {params: Promise.resolve({page})});

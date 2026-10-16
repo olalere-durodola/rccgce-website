@@ -7,7 +7,6 @@ import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { Arch } from "@/components/ui/arch";
 import { ScriptureEyebrow } from "@/components/ui/scripture-eyebrow";
-import { SermonCard } from "@/components/site/sermon-card";
 import { MinistryCard } from "@/components/site/ministry-card";
 import { EventCard } from "@/components/site/event-card";
 import { NewsletterForm } from "@/components/site/newsletter-form";
