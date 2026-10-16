@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Imported standalone source has its own Node/content validation suite.
+    "redesign/**",
+    "public/redesign-assets/**",
   ]),
 ]);
 

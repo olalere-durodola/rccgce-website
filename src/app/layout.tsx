@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, DM_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -10,24 +10,19 @@ import {
   THEME_COLOR,
 } from "@/lib/site";
 
-const playfair = Playfair_Display({
+const displayFont = localFont({
+  src: "../../redesign/assets/fonts/instrument-serif.ttf",
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: "400",
   display: "swap",
 });
-
-const inter = Inter({
+const bodyFont = localFont({
+  src: [
+    {path: "../../redesign/assets/fonts/dm-sans-400.ttf", weight: "400"},
+    {path: "../../redesign/assets/fonts/dm-sans-500.ttf", weight: "500"},
+    {path: "../../redesign/assets/fonts/dm-sans-700.ttf", weight: "700"},
+  ],
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const dmMono = DM_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -82,7 +77,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} ${dmMono.variable} h-full antialiased`}
+      className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {/* Skip link: hidden until focused, then jumps keyboard/screen-reader

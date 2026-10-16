@@ -1,0 +1,11 @@
+{
+  "name": "covenant-embassy-redesign",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "validate": "python test/validate_documents.py",
+    "validate:content": "python test/validate_migration.py"
+  }
+}

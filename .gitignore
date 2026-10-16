@@ -49,3 +49,7 @@ dev.db
 dev.db-journal
 /public/uploads/*
 !/public/uploads/.gitkeep
+
+# Generated private redesign outputs; never commit generated HTML or assets.
+/redesign/dist/
+/public/redesign-assets/

@@ -1,13 +1,38 @@
 # RCCG Covenant Embassy
 
+## Latest private redesign
+
+The October 14 redesign is now included in `redesign/`, imported from private Site version 7, source commit `7e43da52b7394ccf7b4480beeda45553b7986185`. It contains the charcoal/ivory/amber design, video-based hero using the verified October 11 recording, all thirteen pages, and the full old-site text migration with source evidence.
+
+Next.js `beforeFiles` rewrites connect the thirteen main website routes to an authenticated HTML route handler. This serves the same generated design directly, preserving its player/navigation/calendar behavior without replacing the existing Next.js, Prisma, account, admin or API code. The legacy shell now uses the same bundled Instrument Serif/DM Sans families, avoiding build-time Google font fetches. The legacy CMS marketing implementations remain available in source; the redesigned Give page deliberately hands payment to the existing church checkout, as in the private review. Login/account/admin and existing APIs are not rewritten.
+
+The redesign is private by default: anonymous requests go to sign-in, ordinary member accounts receive 403, and administrators can review. To give an existing member review-only access, set server-only `REDESIGN_REVIEWER_USER_IDS` to comma-separated immutable account IDs. Email alone is not an access check, and reviewing does not require promoting a member to administrator. No invitation email is sent by this code. No public-release bypass is included. Private HTML is never stored in `public/`; responses are `private, no-store` and excluded from indexing. The embedded canonicals and crawler exclusions still belong to the private review. Public release, final-domain SEO, existing payment migration, and changing access require separate approval and verification.
+
+`npm run dev` and `npm run build` regenerate the redesign and copy only its font/logo/CSS/JS assets to `public/redesign-assets/`. Build output is ignored. The scoped `redesign/.openai/hosting.json` records the existing private Site identity; it is not a GitHub deploy hook. Pushing this repository does not change the existing Sites preview or the Wix domain.
+
+Checks:
+
+```bash
+npm test                 # Existing app and private route/access tests
+npm run lint
+npm run test:redesign    # Original 25 media/schedule tests
+npm run build            # Needs a migrated local/test database for legacy CMS routes
+npm run validate:redesign
+npm run validate:content
+```
+
+For build checks without an application database, `python scripts/create-build-fixture.py` creates a brand-new disposable SQLite file from committed migration SQL and prints its `DATABASE_URL`. It never reads a configured database URL and never seeds demo users or content. This is a build fixture, not a replacement migration workflow. The PR workflow uses it with read-only repository permissions and no deployment step.
+
+Local verification: 184 app tests and 25 standalone tests pass; generated-document and source-to-page content checks pass. Lint has seven pre-existing warnings and no errors. Browser/mobile and actual YouTube playback review remain outstanding. See `redesign/CONTENT-MIGRATION.md` for the old-site copy inventory and explicit exceptions.
+
+---
+
 A premium church website and member platform for **RCCG Covenant Embassy** in
 Plano, Texas. The public site invites visitors to worship, watch sermons,
 explore ministries, plan a visit, read the blog, and give online; a gated
 member portal and an admin CMS sit behind authentication.
 
-Built on the **Royal Covenant** design system — navy (`#0B1436`) and gold
-(`#E8C66B`), Playfair Display / Inter / DM Mono, with a signature cathedral
-"Arch" motif and scripture eyebrows.
+The legacy portal and CMS use the **Royal Covenant** navy/gold layout. Its shell now uses locally bundled Instrument Serif / DM Sans; the thirteen main website routes use the separate charcoal/ivory/amber redesign described above.
 
 ---
 
@@ -41,7 +66,7 @@ Built on the **Royal Covenant** design system — navy (`#0B1436`) and gold
   monogram favicon.
 - **Accessibility:** single `h1` per page, labelled form inputs with announced
   errors, a keyboard-operable mobile drawer, a skip-to-content link, a global
-  gold focus ring, WCAG-AA color contrast, and `prefers-reduced-motion` support.
+  gold focus ring, contrast-oriented color tokens, and `prefers-reduced-motion` support. Rendered accessibility still requires review.
 
 ---
 
@@ -55,11 +80,11 @@ Built on the **Royal Covenant** design system — navy (`#0B1436`) and gold
 ## Setup
 
 ```bash
-# 1. Install dependencies (also runs `prisma generate` via postinstall)
-npm install
-
-# 2. Create your local env file
+# 1. Create your local env file first (postinstall needs DATABASE_URL)
 cp .env.example .env
+
+# 2. Install dependencies (also runs `prisma generate` via postinstall)
+npm install
 
 # 3. Set a real AUTH_SECRET in .env (required)
 npx auth secret        # writes/updates AUTH_SECRET, or:

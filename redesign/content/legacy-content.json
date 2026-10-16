@@ -1,0 +1,147 @@
+{
+  "sections": {
+    "welcome": {
+      "source_url": "https://www.rccgcovenantembassy.org",
+      "source_id": "comp-mt9kjj6q4",
+      "destination": "/",
+      "paragraphs": [
+        "Welcome to RCCG Covenant Embassy, a family-friendly, fast-growing RCCG parish located in the heart of Plano, Dallas. We'd love to have you and your family join us for a worship experience like no other — power-packed, spirit-filled, and rooted in genuine community.",
+        "As a Redeemed Christian Church of God parish, our mission is simple: to see souls saved, lives transformed, and families strengthened through the uncompromised Word of God. Every service is an opportunity to encounter God's presence in an atmosphere of warmth, holiness, and love.",
+        "You'll also receive sound, practical, and anointed teaching from our Pastor, Pastor Shola Adeyemo, whose ministry is grounded in Scripture and committed to helping you grow in faith and purpose.",
+        "Come as you are — we can't wait to welcome you home."
+      ]
+    },
+    "whoWeAre": {
+      "source_url": "https://www.rccgcovenantembassy.org/blank-1",
+      "source_id": "comp-lidp11sp1",
+      "destination": "/about",
+      "paragraphs": [
+        "We are a church that seeks to be a place of welcome, hope, and transformation. We strive to be a place of belonging where everyone is accepted and loved. We are a church that seeks to be a place of worship, prayer, and service to our community. Our church aims to be a place of learning and growth, where we can grow in our faith and understanding of God's Word. Our church seeks to be a place of mission where we can share the good news of Jesus Christ with our neighbors.",
+        "As a church, we are a community of individuals united by our faith in God and our desire to serve and honor Him. We are committed to living according to the teachings of the Bible and striving to follow in Christ's footsteps by loving our neighbors as ourselves, serving those in need, and sharing the gospel's good news. Our church is where people from all walks of life are welcome, regardless of age, ethnicity, social status, background, past experiences, or current struggles. We believe that working together as a community can better serve God's purposes and build His kingdom on earth."
+      ]
+    },
+    "beliefs": {
+      "source_url": "https://www.rccgcovenantembassy.org/blank-1",
+      "source_id": "comp-luh12pkr1",
+      "destination": "/about",
+      "paragraphs": [
+        "We believe in the Divine inspiration of the Bible and the infallible Word of God. The Divine Trinity consists of three Persons: The Father, the Son, and the Holy Ghost. The Deity of Jesus Christ, in His virgin birth, sinless life, teachings, crucifixion, resurrection, ascension, and coming return to this earth in power and glory to rule.",
+        "God created man in the image of God before whom he walked in innocence, holiness, and purity, but by voluntary disobedience and transgression, he fell to the depths of sin. Therefore, the only means of being cleansed from sin is through repentance and faith in the finished work at Calvary.",
+        "Perfection is a spiritual growth for those sanctified and consecrated unto God. The Baptism of the Holy Ghost for all believers living blessed lives is evidenced by speaking in tongues as the Spirit gives utterances. That Divine Healing of sickness for all believers is in the atonement."
+      ]
+    },
+    "vision": {
+      "source_url": "https://www.rccgcovenantembassy.org/blank-1",
+      "source_id": "comp-lidp11sj",
+      "destination": "/about",
+      "paragraphs": [
+        "At RCCG Covenant Embassy, Our Vision is to build a “Family Church” where those who are hurting, depressed, frustrated, and confused can find love, acceptance, help, guidance, and encouragement. We pursue the Glory of God through worship, ministry, giving, and education. We strive to connect with Jesus Christ and to each other, in order to magnify the name of the Lord our God. At the heart of everything we do is the understanding that we must love God with all our hearts, with all our souls, with all our minds, and we must also treat our neighbors as we wish to be treated ourselves."
+      ]
+    },
+    "community": {
+      "source_url": "https://www.rccgcovenantembassy.org/blank-1",
+      "source_id": "comp-lidp11se",
+      "destination": "/about",
+      "paragraphs": [
+        "Our mission is to Plant and cultivate God’s Garden, build God’s building, harvest God’s field & grow Christ’s body.. RCCG Covenant Embassy has a long, proud history of serving the community of Plano, Tx. Through the dedication of our leadership, pastors, and volunteers, we are committed to the teachings of Jesus Christ and are here to spread His message. We are open to worshippers of all ages and backgrounds and strive to lead all who worship with us toward a deeper love for God."
+      ]
+    },
+    "online": {
+      "source_url": "https://www.rccgcovenantembassy.org",
+      "source_id": "comp-lidp0424",
+      "destination": "/watch",
+      "paragraphs": [
+        "Worship with us Online!",
+        "Live service every Sunday on YouTube @rccgcovenantembassy!",
+        "Subscribe and follow us online."
+      ]
+    }
+  },
+  "events": [
+    {
+      "slug": "just-worship-2026",
+      "title": "Just Worship 2026",
+      "source_url": "https://www.rccgcovenantembassy.org/event-details-registration/just-worship-2026",
+      "destination": "/events/just-worship-2026",
+      "start": "2026-08-29T16:00:00-05:00",
+      "end": "2026-08-29T19:00:00-05:00",
+      "date": "Aug 29, 2026, 4:00 PM – 7:00 PM",
+      "short_date": "Sat, Aug 29",
+      "location": "RCCG Covenant Embassy, 3900 Pebblecreek Ct, Ste 102, Plano, TX 75023, USA",
+      "status": "Tickets are not on sale",
+      "about": [
+        "Just Worship 2026 | One Heart. One Sound. One King.",
+        "What if, for three hours, there was no agenda other than worshiping God?",
+        "No long program. No distractions. No denominational barriers. Just voices lifted, hearts surrendered, and a room full of people who came for one reason: to spend time in the presence of God.",
+        "Just Worship 2026 is three hours of uninterrupted worship through songs, praise, and heartfelt moments before God.",
+        "If you love to worship, if you have been longing for time simply set apart for God, or if you just need a place to come as you are and turn your attention back to Him, this is your invitation.",
+        "Come alone. Bring your family. Invite your friends. Bring someone who needs to be in the room."
+      ]
+    },
+    {
+      "slug": "special-mothers-day-service",
+      "title": "Special Mother's Day Service",
+      "source_url": "https://www.rccgcovenantembassy.org/event-details-registration/special-mothers-day-service",
+      "destination": "/events/special-mothers-day-service",
+      "start": "2025-05-11T11:00:00-05:00",
+      "end": "2025-05-11T15:00:00-05:00",
+      "date": "May 11, 2025, 11:00 AM – 3:00 PM",
+      "short_date": "Sun, May 11",
+      "location": "Plano, 3900 Pebblecreek Ct, Ste 102, Plano, TX 75023, USA",
+      "status": "Registration is closed",
+      "about": []
+    }
+  ],
+  "group": {
+    "source_url": "https://www.rccgcovenantembassy.org/group/regeneration-choir",
+    "destination": "/groups",
+    "name": "ReGeneration (Choir)",
+    "privacy": "Private",
+    "members": "1 member",
+    "access": "Only approved members can view this group.",
+    "visibility": "Visible",
+    "visibility_text": "Shown to site visitors.",
+    "created": "June 1, 2023",
+    "creator": "covenantembassy"
+  },
+  "articles": {
+    "source_url": "https://www.rccgcovenantembassy.org/blog",
+    "destination": "/articles",
+    "heading": "Articles",
+    "empty_heading": "Check back soon",
+    "empty_text": "Once posts are published, you’ll see them here."
+  },
+  "gallery": [
+    {
+      "source_url": "https://www.rccgcovenantembassy.org/portfolio/our-pastor-and-his-lovely-wife",
+      "destination": "/gallery",
+      "title": "Our Pastor and his Lovely Wife",
+      "year": null
+    },
+    {
+      "source_url": "https://www.rccgcovenantembassy.org/portfolio/youth-sunday-service",
+      "destination": "/gallery",
+      "title": "Youth Sunday Service",
+      "year": "2023"
+    }
+  ],
+  "social": {
+    "facebook": "https://www.facebook.com/profile.php/?id=100070645295915",
+    "instagram": "https://www.instagram.com/rccgcovenantembassy/"
+  },
+  "study": {
+    "title": "Digging Deep / Bible Study",
+    "meeting_id": "844 7873 3063",
+    "passcode": "723937"
+  },
+  "giving": {
+    "title": "Tithe, Offering & Donation",
+    "reference": "2 Corinthians 9;7",
+    "frequencies": [
+      "One time",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ]
+  }
+}

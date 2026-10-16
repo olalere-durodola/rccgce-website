@@ -10,7 +10,13 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "seed": "tsx prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "predev": "node scripts/build-redesign.mjs",
+    "prebuild": "node scripts/build-redesign.mjs",
+    "build:redesign": "node scripts/build-redesign.mjs",
+    "test:redesign": "npm --prefix redesign test",
+    "validate:redesign": "python redesign/test/validate_documents.py",
+    "validate:content": "python redesign/test/validate_migration.py"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
