@@ -20,7 +20,7 @@
   /* Fonts (CSS variables provided by next/font in layout.tsx) */
   --font-display: var(--font-display);
   --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-mono: var(--font-body);
 }
 
 body {

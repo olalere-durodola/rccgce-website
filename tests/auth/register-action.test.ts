@@ -13,7 +13,8 @@ vi.mock("@/lib/db", () => ({
 }));
 
 // Mock bcrypt to assert hashing happens with the expected rounds.
-const hash = vi.fn(async (_pw: string, _rounds: number) => "hashed-pw");
+const hash = vi.fn<(pw: string, rounds: number) => Promise<string>>()
+  .mockResolvedValue("hashed-pw");
 vi.mock("bcryptjs", () => ({
   default: { hash: (pw: string, rounds: number) => hash(pw, rounds) },
 }));

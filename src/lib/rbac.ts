@@ -25,7 +25,10 @@ export async function getCurrentUser(
   getSession: GetSession = defaultGetSession,
 ): Promise<SessionUser | null> {
   const session = await getSession();
-  return session?.user ?? null;
+  const user = session?.user;
+  // A truthy auth result is not proof of an authenticated identity.
+  if (typeof user?.id !== "string" || !user.id.trim()) return null;
+  return user;
 }
 
 /**

@@ -23,8 +23,9 @@ vi.mock("@/lib/db", () => ({
 }));
 
 // --- mock auth (guest by default) ---
-const authFn = vi.fn(async () => null);
-vi.mock("@/lib/auth", () => ({ auth: (...a: unknown[]) => authFn(...a) }));
+const authFn = vi.fn<() => Promise<{ user: { id: string } } | null>>()
+  .mockResolvedValue(null);
+vi.mock("@/lib/auth", () => ({ auth: () => authFn() }));
 
 import { POST as createOrderPOST } from "@/app/api/paypal/create-order/route";
 import { POST as captureOrderPOST } from "@/app/api/paypal/capture-order/route";
