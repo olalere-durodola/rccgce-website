@@ -1,7 +1,8 @@
+import {fileURLToPath} from 'node:url';
 import {readFileSync,writeFileSync,mkdirSync,cpSync,rmSync} from 'node:fs';
 import {join,resolve} from 'node:path';
 import {SITE_ORIGIN as origin,VIDEOS,HERO_CLIP,HERO_CAPTION} from '../site/media-config.mjs';
-const root=resolve(new URL('..',import.meta.url).pathname),dist=join(root,'dist');
+const root=resolve(fileURLToPath(new URL('..',import.meta.url))),dist=join(root,'dist');
 const church=JSON.parse(readFileSync(join(root,'content.json'),'utf8'));
 const legacy=JSON.parse(readFileSync(join(root,'content','legacy-content.json'),'utf8'));
 const text=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');

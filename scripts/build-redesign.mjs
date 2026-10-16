@@ -1,8 +1,9 @@
+import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {cpSync, mkdirSync, readdirSync, rmSync} from 'node:fs';
 import {resolve, join} from 'node:path';
 
-const root=resolve(new URL('..',import.meta.url).pathname);
+const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const result=spawnSync(process.execPath,['scripts/build.mjs'],{cwd:join(root,'redesign'),stdio:'inherit'});
 if(result.status!==0)process.exit(result.status??1);
 const output=join(root,'public','redesign-assets');

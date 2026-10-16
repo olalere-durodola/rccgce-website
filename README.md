@@ -2,7 +2,7 @@
 
 ## Latest private redesign
 
-The October 14 redesign is now included in `redesign/`, imported from private Site version 7, source commit `7e43da52b7394ccf7b4480beeda45553b7986185`. It contains the charcoal/ivory/amber design, video-based hero using the verified October 11 recording, all thirteen pages, and the full old-site text migration with source evidence.
+The October 14 redesign is now included in `redesign/`, imported from private Site version 7, source commit `7e43da52b7394ccf7b4480beeda45553b7986185`. The export uses portable Node file-URL paths for Windows/Linux builds. It contains the charcoal/ivory/amber design, video-based hero using the verified October 11 recording, all thirteen pages, and the full old-site text migration with source evidence.
 
 Next.js `beforeFiles` rewrites connect the thirteen main website routes to an authenticated HTML route handler. This serves the same generated design directly, preserving its player/navigation/calendar behavior without replacing the existing Next.js, Prisma, account, admin or API code. The legacy shell now uses the same bundled Instrument Serif/DM Sans families, avoiding build-time Google font fetches. The legacy CMS marketing implementations remain available in source; the redesigned Give page deliberately hands payment to the existing church checkout, as in the private review. Login/account/admin and existing APIs are not rewritten.
 
@@ -24,6 +24,8 @@ npm run validate:content
 For build checks without an application database, `python scripts/create-build-fixture.py` creates a brand-new disposable SQLite file from committed migration SQL and prints its `DATABASE_URL`. It never reads a configured database URL and never seeds demo users or content. This is a build fixture, not a replacement migration workflow. The PR workflow uses it with read-only repository permissions and no deployment step.
 
 Local verification: 184 app tests and 25 standalone tests pass; generated-document and source-to-page content checks pass. Lint has seven pre-existing warnings and no errors. Browser/mobile and actual YouTube playback review remain outstanding. See `redesign/CONTENT-MIGRATION.md` for the old-site copy inventory and explicit exceptions.
+
+Release limitation recorded October 16, 2026: `npm audit --omit=dev --json` reports 18 production dependency findings (5 moderate, 9 high, 4 critical), including the existing Next.js/Auth.js dependency chain. The full CI install reports 30 findings. Dependencies and the lockfile are unchanged by this redesign transfer. Review and remediate the advisories before public release; passing functional checks does not resolve these findings.
 
 ---
 
@@ -118,7 +120,7 @@ The admin account can reach the CMS at `/admin`; members land in `/account`.
 ## Tests & build
 
 ```bash
-npm test          # vitest run — full unit/integration suite (157 tests)
+npm test          # vitest run — full unit/integration suite (184 tests)
 npm run build     # production build (must be clean)
 npm run lint      # eslint
 ```
@@ -130,6 +132,8 @@ npm run lint      # eslint
 > avoid loading the `next/server` runtime in the VM context, and assert against
 > the real `NEXT_REDIRECT` throw shape so they don't depend on mock-hoisting
 > timing).
+
+`vitest.setup.ts` explicitly registers Testing Library cleanup after each test so reused VM workers in CI do not leave earlier renders in the document.
 
 ---
 
