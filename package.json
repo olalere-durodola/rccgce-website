@@ -15,6 +15,8 @@
     "predev": "node scripts/build-redesign.mjs",
     "prebuild": "node scripts/build-redesign.mjs",
     "build:redesign": "node scripts/build-redesign.mjs",
+    "export:pages": "node scripts/export-github-pages.mjs",
+    "test:pages": "node --test scripts/export-github-pages.test.mjs",
     "test:redesign": "npm --prefix redesign test",
     "validate:redesign": "python redesign/test/validate_documents.py",
     "validate:content": "python redesign/test/validate_migration.py"
