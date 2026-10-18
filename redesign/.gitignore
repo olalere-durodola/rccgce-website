@@ -1,5 +1,0 @@
-dist/
-research/
-.qa-artifacts/
-node_modules/
-.env*

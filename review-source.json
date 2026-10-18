@@ -1,0 +1,7 @@
+{
+  "source_repository": "https://github.com/olalere-durodola/rccgce-website",
+  "design_source_commit": "491e36920b27d8db2e32280808c024732ce368cd",
+  "exporter_sha256": "1fef9091368b82d17859812a30587a194310d9148ba663fb49d261f18c804f87",
+  "review_url": "https://olalere-durodola.github.io/rccgce-website/",
+  "scope": "Static review website; account/admin/API/database are excluded; giving and groups use existing church handoffs."
+}
