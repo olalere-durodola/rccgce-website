@@ -41,6 +41,7 @@ jobs:
       - run: npm test
       - run: npm run lint
       - run: npm run test:redesign
+      - run: npm run test:pages
       - name: Create an isolated empty build database
         run: python scripts/create-build-fixture.py >> "$GITHUB_ENV"
       - run: npm run build

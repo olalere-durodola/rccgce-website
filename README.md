@@ -1,5 +1,7 @@
 # RCCG Covenant Embassy
 
+GitHub Pages review: see [setup and scope](docs/github-pages-review.md). `npm run export:pages` creates a standalone project-path export in `build/github-pages/`; only the generated `gh-pages` branch should be selected as the Pages publishing source. This does not deploy the Next.js backend.
+
 ## Latest private redesign
 
 The October 14 redesign is now included in `redesign/`, imported from private Site version 7, source commit `7e43da52b7394ccf7b4480beeda45553b7986185`. The export uses portable Node file-URL paths for Windows/Linux builds. It contains the charcoal/ivory/amber design, video-based hero using the verified October 11 recording, all thirteen pages, and the full old-site text migration with source evidence.
